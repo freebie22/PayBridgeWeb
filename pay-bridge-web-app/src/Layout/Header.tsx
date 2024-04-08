@@ -5,6 +5,7 @@ import { userModel } from "../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Storage/Redux/store";
 import { emptyUserState, setLoggedInUser } from "../Storage/Redux/userAuthSlice";
+import { emptyProflieState, setProfileState } from "../Storage/Redux/personalAccountHolderSlice";
 
 function Header() {
   const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
@@ -14,6 +15,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(setLoggedInUser({...emptyUserState}));
+    dispatch(setProfileState({...emptyProflieState}));
     navigate("/");
   }
 
@@ -211,7 +213,7 @@ function Header() {
                             border: "none",
                           }}
                           className="btn mb-2"
-                          to="/login"
+                          to="/myProfile"
                         >
                           Особистий кабінет
                         </NavLink>
