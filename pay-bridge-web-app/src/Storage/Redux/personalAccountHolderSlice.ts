@@ -7,6 +7,7 @@ export const emptyProflieState: personalAccountHolderProfileModel = {
   middleName: "",
   dateOfBirth: "",
   email: "",
+  emailConfirmed: false,
   phoneNumber: "",
   postalCode: "",
   country: "",
@@ -16,7 +17,7 @@ export const emptyProflieState: personalAccountHolderProfileModel = {
   passportSeries: "",
   passportNumber: "",
   taxIdentificationNumber: "",
-  profileImage: "",
+  profileImage: ""
 };
 
 const PersonalAccountHolderProfileSlice = createSlice({
@@ -29,6 +30,7 @@ const PersonalAccountHolderProfileSlice = createSlice({
       state.middleName = action.payload.middleName;
       state.dateOfBirth = action.payload.dateOfBirth;
       state.email = action.payload.email;
+      state.emailConfirmed = action.payload.emailConfirmed;
       state.phoneNumber = action.payload.phoneNumber;
       state.postalCode = action.payload.postalCode;
       state.country = action.payload.country;

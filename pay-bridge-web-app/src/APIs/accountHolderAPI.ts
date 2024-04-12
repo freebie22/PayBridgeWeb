@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const accountHolderApi = createApi({
     reducerPath: "accountHolderApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://paybridgeapi.azurewebsites.net/api/"
+        baseUrl: "https://localhost:7112/api/"
     }),
     tagTypes: ["PersonalAccountHolders"],
     endpoints: (builder) => ({

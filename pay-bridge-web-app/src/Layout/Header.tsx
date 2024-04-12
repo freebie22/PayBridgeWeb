@@ -16,8 +16,10 @@ function Header() {
     localStorage.removeItem("token");
     dispatch(setLoggedInUser({...emptyUserState}));
     dispatch(setProfileState({...emptyProflieState}));
+    location.reload();
     navigate("/");
   }
+  
 
   return (
     <div>

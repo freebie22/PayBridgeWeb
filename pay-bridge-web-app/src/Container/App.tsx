@@ -9,30 +9,36 @@ import { userModel } from "../Interfaces";
 import { useGetPersonalAccountHolderByUserIdQuery } from "../APIs/accountHolderAPI";
 import { RootState } from "../Storage/Redux/store";
 import { setProfileState } from "../Storage/Redux/personalAccountHolderSlice";
+import EmailConfirmation from "../Pages/EmailConfirmation";
 
 function App() {
   const dispatch = useDispatch();
 
-  const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
 
-  const {data, isLoading} = useGetPersonalAccountHolderByUserIdQuery(userData.id);
-
-  useEffect( () => {
-    const token = localStorage.getItem("token");
-
-    if(token)
-      {
-        const {id, userName, email, role} : userModel = jwtDecode(token);
-        dispatch(setLoggedInUser({id, userName, email, role}))
-      }
-  }, [])
+  const { data, isLoading } = useGetPersonalAccountHolderByUserIdQuery(
+    userData.id,
+    {
+      skip: userData.id === "",
+    }
+  );
 
   useEffect(() => {
-      if(!isLoading)
-      {
-        (dispatch(setProfileState(data.result)));
-      }
-  }, [data])
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const { id, userName, email, role }: userModel = jwtDecode(token);
+      dispatch(setLoggedInUser({ id, userName, email, role }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && userData.id !== "") {
+      dispatch(setProfileState(data.result));
+    }
+  }, [data]);
 
   return (
     <div>
@@ -40,7 +46,16 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
-        <Route path="/myProfile" element={<PersonalAccountHolderProfile></PersonalAccountHolderProfile>}></Route>
+        <Route
+          path="/myProfile"
+          element={
+            <PersonalAccountHolderProfile></PersonalAccountHolderProfile>
+          }
+        ></Route>
+        <Route
+          path="/emailConfirmation/:confirmToken"
+          element={<EmailConfirmation></EmailConfirmation>}
+        ></Route>
       </Routes>
       <Footer></Footer>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLoginUserMutation } from "../APIs/authAPI";
+import { useLoginUserMutation } from "../APIs/userAPI";
 import { apiResponse, userModel } from "../Interfaces";
 import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";

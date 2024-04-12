@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { useRegisterUserMutation } from "../APIs/authAPI";
+import { useRegisterUserMutation } from "../APIs/userAPI";
 import { useNavigate } from "react-router-dom";
 import inputHelper from "../Helper/inputHelper";
 import { apiResponse } from "../Interfaces";

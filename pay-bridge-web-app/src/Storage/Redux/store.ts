@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userAuthReducer } from "./userAuthSlice";
-import authApi from "../../APIs/authAPI";
+import authApi from "../../APIs/userAPI";
 import { PersonalAccountHolderProfileReducer } from "./personalAccountHolderSlice";
 import accountHolderApi from "../../APIs/accountHolderAPI";
 

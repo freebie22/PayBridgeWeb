@@ -4,6 +4,7 @@ export default interface personalAccountHolderProfileModel {
   middleName: string;
   dateOfBirth: string;
   email: string;
+  emailConfirmed : boolean,
   phoneNumber: string;
   postalCode: string;
   country: string;
