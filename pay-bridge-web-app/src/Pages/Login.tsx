@@ -6,8 +6,9 @@ import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
 import inputHelper from "../Helper/inputHelper";
 import toastNotify from "../Helper/toastNotify";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MainLoader } from "../Components/Common";
+import payBridgeSm from "../assets/images/paybridge-sm.png"
 
 function Login() {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -24,6 +25,7 @@ function Login() {
   const handleUserLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
+    console.log(userInput);
   };
 
   const navigate = useNavigate();
@@ -54,12 +56,14 @@ function Login() {
     setLoading(false);
   };
 
+
   return (
-    <div className="container text-center">
+    <div className="container mt-5 pt-2 rounded text-center" style={{backgroundColor: "#212529", maxWidth: "50%"}}>
       {isLoading && <MainLoader></MainLoader>}
       <form onSubmit={handleSubmit} method="post">
-        <h1 className="mt-5">Вхід</h1>
-        <div className="mt-5">
+        <img className="" src={payBridgeSm} alt="" style={{maxHeight: "70px"}}></img>
+        <h1 className="text-white">Вхід до облікового запису</h1>
+        <div className="mt-3">
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
             <input
               type="text"
@@ -83,6 +87,9 @@ function Login() {
             ></input>
           </div>
         </div>
+        <div className="mt-3">
+          <NavLink to="/forgotPassword" className="text-white">Забули пароль ?</NavLink>
+        </div>
         <div className="mt-2">
           {error ? (
             <div>
@@ -92,7 +99,7 @@ function Login() {
           <button
             disabled={isLoading}
             type="submit"
-            className="btn btn-success"
+            className="btn btn-success my-3"
             style={{ width: "200px" }}
           >
             Увійти

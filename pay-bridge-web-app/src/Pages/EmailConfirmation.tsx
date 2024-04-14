@@ -23,13 +23,13 @@ function EmailConfirmation() {
     });
 
     if (response.data && response.data.isSuccess) {
+      navigate("/myProfile");
+      location.reload();
       toastNotify("Вітаємо! Ви успішно електронну пошту в нашому сервісі. Тепер Ви можете реєструвати власні рахунки та виконувати операції за ними.");
-      navigate("/");
-      location.reload();
     } else {
-      toastNotify(response.data!.errorMessages![0], "error");
-      navigate("/"); 
+      navigate("/myProfile"); 
       location.reload();
+      toastNotify(response.data!.errorMessages![0], "error");
     }
   };
 

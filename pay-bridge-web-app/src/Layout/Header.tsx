@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/images/logo.jpg";
+import logo from "../assets/images/paybridge-sm.png";
+import sign from "../assets/images/paybridgeSign.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { userModel } from "../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Storage/Redux/store";
-import { emptyUserState, setLoggedInUser } from "../Storage/Redux/userAuthSlice";
-import { emptyProflieState, setProfileState } from "../Storage/Redux/personalAccountHolderSlice";
+import {
+  emptyUserState,
+  setLoggedInUser,
+} from "../Storage/Redux/userAuthSlice";
+import {
+  emptyProflieState,
+  setProfileState,
+} from "../Storage/Redux/personalAccountHolderSlice";
 
 function Header() {
-  const userData : userModel = useSelector((state: RootState) => state.userAuthStore);
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    dispatch(setLoggedInUser({...emptyUserState}));
-    dispatch(setProfileState({...emptyProflieState}));
-    location.reload();
+    dispatch(setLoggedInUser({ ...emptyUserState }));
+    dispatch(setProfileState({ ...emptyProflieState }));
     navigate("/");
-  }
-  
+  };
 
   return (
     <div>
@@ -30,9 +37,9 @@ function Header() {
         <a className="navbar-brand" href="#">
           <img
             src={logo}
-            style={{ height: "40px" }}
+            style={{ height: "60px" }}
             alt=""
-            className="m-1"
+            className="mx-1"
           ></img>
         </a>
         <button
@@ -49,28 +56,23 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <NavLink
-                style={{ color: "white" }}
-                className="nav-link"
-                aria-current="page"
-                to="/"
-              >
-                <h3 className="p-1">PayBridge</h3>
+              <NavLink to="/">
+                <img style={{ maxHeight: "90%" }} src={sign} alt=""></img>
               </NavLink>
             </li>
             <li className="nav-item pt-1">
               <a style={{ color: "white" }} className="nav-link" href="#">
-                <h5 className="p-1">Перелік послуг</h5>
+                <h5 className="p-1 m-1">Перелік послуг</h5>
               </a>
             </li>
             <li className="nav-item  pt-1">
               <a style={{ color: "white" }} className="nav-link" href="#">
-                <h5 className="p-1">Про нас</h5>
+                <h5 className="p-1 m-1">Про нас</h5>
               </a>
             </li>
             <li className="nav-item pt-1">
               <a style={{ color: "white" }} className="nav-link" href="#">
-                <h5 className="p-1">Контакти</h5>
+                <h5 className="p-1 m-1">Контакти</h5>
               </a>
             </li>
             <div className="d-flex p-1">
@@ -80,7 +82,7 @@ function Header() {
                     type="button"
                     data-bs-toggle="modal"
                     data-bs-target="#authorizedModal"
-                    className="btn btn-warning btn-outlined text-white"
+                    className="btn btn-warning btn-outlined text-white m-1"
                   >
                     Мій профіль
                   </button>
@@ -91,7 +93,7 @@ function Header() {
                     type="button"
                     data-bs-toggle="modal"
                     data-bs-target="#loginModal"
-                    className="btn btn-success btn-outlined text-white"
+                    className="btn btn-success btn-outlined text-white m-1"
                   >
                     Авторизація
                   </button>
@@ -197,7 +199,8 @@ function Header() {
                         className="modal-title text-center"
                         id="authorizedModalLabel"
                       >
-                        Вітаємо, {userData.userName}! Оберіть одну з наступних дій.
+                        Вітаємо, {userData.userName}! Оберіть одну з наступних
+                        дій.
                       </h4>
                     </div>
                     <div
@@ -224,7 +227,7 @@ function Header() {
                           className="btn btn-danger mb-2"
                           onClick={handleLogout}
                         >
-                          Вийти з облікового запису 
+                          Вийти з облікового запису
                         </button>
                       </div>
                     </div>

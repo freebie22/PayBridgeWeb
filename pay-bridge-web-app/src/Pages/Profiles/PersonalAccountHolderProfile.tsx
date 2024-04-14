@@ -11,8 +11,8 @@ import { useConfirmEmailRequestMutation } from "../../APIs/userAPI";
 import toastNotify from "../../Helper/toastNotify";
 import { MiniLoader } from "../../Components/Common";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGetPersonalAccountHolderByUserIdQuery } from "../../APIs/accountHolderAPI";
-import { setProfileState } from "../../Storage/Redux/personalAccountHolderSlice";
+import payBridgeSm from "../../assets/images/paybridge-sm.png";
+import { withAuth } from "../../HOC";
 
 function PersonalAccountHolderProfile() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,8 +71,10 @@ function PersonalAccountHolderProfile() {
 
   return (
     <div className="container py-5">
-      <div className="d-flex justify-content-center mb-3">
-        <h2 style={{ color: "#0DA378" }}>Особистий кабінет</h2>
+      <div className="d-flex justify-content-center rounded mb-3" style={{backgroundColor: "#212529"}}>
+        <img className="m-3" src={payBridgeSm} alt="" style={{maxHeight: "40px"}}></img>
+        <h2 className="m-3" style={{ color: "#FFF" }}>Особистий кабінет</h2>
+        <img className="m-3" src={payBridgeSm} alt="" style={{maxHeight: "40px"}}></img>
       </div>
       <div className="row">
         <div className="col-lg-4">
@@ -241,4 +243,4 @@ function PersonalAccountHolderProfile() {
   );
 }
 
-export default PersonalAccountHolderProfile;
+export default withAuth(PersonalAccountHolderProfile);
