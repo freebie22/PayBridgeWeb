@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Footer, Header } from "../Layout";
 import { Route, Routes } from "react-router-dom";
-import { ForgotPassword, Home, Login, PersonalAccountHolderProfile, Register } from "../Pages";
+import { ChangePassword, ForgotPassword, Home, Login, PersonalAccountHolderProfile, Register } from "../Pages";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
@@ -48,6 +48,7 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword></ForgotPassword>}></Route>
+        <Route path="/changePassword/:login?/:confirmToken?" element={<ChangePassword></ChangePassword>}></Route>
         <Route
           path="/myProfile"
           element={

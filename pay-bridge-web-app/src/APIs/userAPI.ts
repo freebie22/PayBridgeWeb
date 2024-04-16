@@ -51,9 +51,29 @@ const authApi = createApi({
                     "Content-Type" : "application/json"
                 }
             })
+        }),
+        changePassword : builder.mutation({
+            query : (passwordModel) => ({
+                url: "user/changePassword",
+                method: "POST",
+                body : passwordModel,
+                headers: {
+                    "Content-Type" : "application/json"
+                }
+            })
+        }),
+        confirmChangePassword : builder.mutation({
+            query : (confrimModel) => ({
+                url : "user/confirmChangePassword",
+                method : "POST",
+                body : confrimModel,
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            })
         })
     }),
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation, useConfirmEmailRequestMutation, useConfirmEmailMutation, useForgotPasswordMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useConfirmEmailRequestMutation, useConfirmEmailMutation, useForgotPasswordMutation, useChangePasswordMutation, useConfirmChangePasswordMutation } = authApi;
 export default authApi;

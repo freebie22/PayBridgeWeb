@@ -7,19 +7,31 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
 import logo from "../../assets/images/defaultProfile.jpg";
-import { useConfirmEmailRequestMutation } from "../../APIs/userAPI";
+import {
+  useChangePasswordMutation,
+  useConfirmEmailRequestMutation,
+} from "../../APIs/userAPI";
 import toastNotify from "../../Helper/toastNotify";
 import { MiniLoader } from "../../Components/Common";
 import { useLocation, useNavigate } from "react-router-dom";
 import payBridgeSm from "../../assets/images/paybridge-sm.png";
 import { withAuth } from "../../HOC";
+import inputHelper from "../../Helper/inputHelper";
 
 function PersonalAccountHolderProfile() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [passowrdLoading, setPasswordLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isPasswordButtonActive, setPasswordButtonActive] =
+    useState<boolean>(false);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [passwordInfo, setPasswordInfo] = useState(() => ({
+    login: "",
+    oldPassword: "",
+  }));
 
   const userData: userModel = useSelector(
     (state: RootState) => state.userAuthStore
@@ -28,12 +40,6 @@ function PersonalAccountHolderProfile() {
   const profileData: personalAccountHolderProfileModel = useSelector(
     (state: RootState) => state.personalAccountHolderStore
   );
-
-  useEffect(() => {
-    console.clear();
-    console.log(userData);
-    console.log(profileData);
-  }, [userData, profileData]);
 
   useEffect(() => {
     if (location.state && location.state.successMessage) {
@@ -69,12 +75,60 @@ function PersonalAccountHolderProfile() {
     setLoading(false);
   };
 
+  const [changePassword] = useChangePasswordMutation();
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const tempData = inputHelper(e, passwordInfo);
+    setPasswordInfo(tempData);
+  };
+
+  const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPasswordLoading(true);
+    const response: apiResponse = await changePassword({
+      login: passwordInfo.login,
+      oldPassword: passwordInfo.oldPassword,
+    });
+
+    if (response.data && response.data.isSuccess) {
+      console.log(response.data.result);
+      navigate(
+        `/changePassword/${response.data.result.login}/${response.data.result.token}`
+      );
+      toastNotify("Для зміни паролю, введіть новий пароль та підтвердіть його.");
+    } else {
+      toastNotify(response.error.data.errorMessages[0], "error");
+    }
+
+    setPasswordLoading(false);
+  };
+
+  const handlePasswordButton = () => {
+    setPasswordButtonActive((previousState) => !previousState);
+    setPasswordInfo({ login: "", oldPassword: "" });
+  };
+
   return (
     <div className="container py-5">
-      <div className="d-flex justify-content-center rounded mb-3" style={{backgroundColor: "#212529"}}>
-        <img className="m-3" src={payBridgeSm} alt="" style={{maxHeight: "40px"}}></img>
-        <h2 className="m-3" style={{ color: "#FFF" }}>Особистий кабінет</h2>
-        <img className="m-3" src={payBridgeSm} alt="" style={{maxHeight: "40px"}}></img>
+      <div
+        className="d-flex justify-content-center rounded mb-3"
+        style={{ backgroundColor: "#212529" }}
+      >
+        <img
+          className="m-3"
+          src={payBridgeSm}
+          alt=""
+          style={{ maxHeight: "40px" }}
+        ></img>
+        <h2 className="m-3" style={{ color: "#FFF" }}>
+          Особистий кабінет
+        </h2>
+        <img
+          className="m-3"
+          src={payBridgeSm}
+          alt=""
+          style={{ maxHeight: "40px" }}
+        ></img>
       </div>
       <div className="row">
         <div className="col-lg-4">
@@ -97,7 +151,7 @@ function PersonalAccountHolderProfile() {
                 {profileData.firstName} {profileData.lastName}
               </h5>
               <p className="text-white mb-1">Клієнту сервісу PayBridge</p>
-              <p className="text-white mb-4">
+              <p className="text-white mb-2">
                 {profileData.country}, {profileData.state}
               </p>
               <div className="d-flex justify-content-center mb-2">
@@ -116,10 +170,62 @@ function PersonalAccountHolderProfile() {
                     </button>
                   </form>
                 ) : null}
+                {isPasswordButtonActive ? (
+                  <form method="POST" onSubmit={handleChangePassword}>
+                    <div className="container m-3">
+                      <h5 className="text-white">
+                        Для зміни паролю введіть логін/E-mail та старий пароль
+                      </h5>
+                      <div className="col-12 row">
+                        <div className="col-6">
+                          <input
+                            className="form-control"
+                            placeholder="Введіть логін"
+                            type="text"
+                            onChange={handleInput}
+                            name="login"
+                            required
+                            value={passwordInfo.login}
+                          ></input>
+                        </div>
+                        <div className="col-6">
+                          <input
+                            className="form-control"
+                            placeholder="Введіть пароль"
+                            type="password"
+                            onChange={handleInput}
+                            name="oldPassword"
+                            required
+                            value={passwordInfo.oldPassword}
+                          ></input>
+                        </div>
+                      </div>
+                      <button
+                      disabled={passowrdLoading}
+                        type="submit"
+                        className="btn btn-success mx-2 mt-4"
+                      >
+                        {passowrdLoading ? (<MiniLoader></MiniLoader>) : "Підтвердити зміну паролю"}
+                      </button>
 
-                <button type="button" className="btn btn-outline-primary ms-1">
-                  Розпочати діалог
-                </button>
+                      <button
+                        type="button"
+                        onClick={handlePasswordButton}
+                        className="btn btn-warning mx-3 mt-4"
+                      >
+                        Відмінити зміну пароля
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <button
+                    onClick={handlePasswordButton}
+                    type="button"
+                    className="btn btn-danger ms-1"
+                  >
+                    Змінити пароль
+                  </button>
+                )}
               </div>
             </div>
           </div>

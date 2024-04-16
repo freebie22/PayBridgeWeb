@@ -3,6 +3,7 @@ import { userAuthReducer } from "./userAuthSlice";
 import authApi from "../../APIs/userAPI";
 import { PersonalAccountHolderProfileReducer } from "./personalAccountHolderSlice";
 import accountHolderApi from "../../APIs/accountHolderAPI";
+import { ChangePasswordReducer } from "./changePasswordSlice";
 
 
 
@@ -10,6 +11,7 @@ const store = configureStore({
     reducer: {
         userAuthStore : userAuthReducer,
         personalAccountHolderStore : PersonalAccountHolderProfileReducer,
+        changePasswordStore : ChangePasswordReducer,
         [authApi.reducerPath] : authApi.reducer,
         [accountHolderApi.reducerPath] : accountHolderApi.reducer
     },
