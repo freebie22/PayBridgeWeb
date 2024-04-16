@@ -20,7 +20,7 @@ export const emptyProflieState: personalAccountHolderProfileModel = {
   profileImage: ""
 };
 
-const PersonalAccountHolderProfileSlice = createSlice({
+export const PersonalAccountHolderProfileSlice = createSlice({
   name: "PersonalAccountHolderProfile",
   initialState: emptyProflieState,
   reducers: {

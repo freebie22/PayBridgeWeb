@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { changePasswordModel } from "../../Interfaces";
 
 
-const emptyChangePasswordState : changePasswordModel = {
+export const emptyChangePasswordState : changePasswordModel = {
     login : "",
     confirmToken : ""
 }
 
 
-const changePasswordSlice = createSlice({
+export const changePasswordSlice = createSlice({
     name : "ChangePassword",
     initialState : emptyChangePasswordState,
     reducers : {

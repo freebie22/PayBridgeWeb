@@ -28,6 +28,22 @@ function Header() {
     navigate("/");
   };
 
+  const [profileLink, setProfileLink] = useState<string>("");
+
+  useEffect(() => {
+            switch (userData.role) {
+      case "Manager":
+        setProfileLink("/managerProfile");
+        break;
+      case "Admin":
+        setProfileLink("/adminProfile");
+        break;
+      default:
+        setProfileLink("/myProfile");
+        break;
+    }
+  }, [userData]);
+
   return (
     <div>
       <nav
@@ -218,7 +234,7 @@ function Header() {
                             border: "none",
                           }}
                           className="btn mb-2"
-                          to="/myProfile"
+                          to={profileLink}
                         >
                           Особистий кабінет
                         </NavLink>

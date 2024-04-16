@@ -15,7 +15,11 @@ function EmailConfirmation() {
 
   const navigate = useNavigate();
 
-  const handleConfirmEmail = async (userId: string, token: string) => {
+  const handleConfirmEmail = async (
+    userId: string,
+    role: string,
+    token: string
+  ) => {
     console.log(userId, token);
     const response: apiResponse = await confirmEmail({
       userId: userId,
@@ -23,11 +27,29 @@ function EmailConfirmation() {
     });
 
     if (response.data && response.data.isSuccess) {
-      navigate("/myProfile");
+      switch (role) {
+        case "Manager":
+          navigate("/managerProfile");
+          break;
+        case "Admin":
+          navigate("/adminProfile");
+          break;
+        default:
+          navigate("/myProfile");
+      }
       location.reload();
-      toastNotify("Вітаємо! Ви успішно електронну пошту в нашому сервісі. Тепер Ви можете реєструвати власні рахунки та виконувати операції за ними.");
+      toastNotify("Вітаємо! Ви успішно електронну пошту в нашому сервісі.");
     } else {
-      navigate("/myProfile"); 
+      switch (role) {
+        case "Manager":
+          navigate("/managerProfile");
+          break;
+        case "Admin":
+          navigate("/adminProfile");
+          break;
+        default:
+          navigate("/myProfile");
+      }
       location.reload();
       toastNotify(response.data!.errorMessages![0], "error");
     }
@@ -36,7 +58,7 @@ function EmailConfirmation() {
   useEffect(() => {
     if (token) {
       const decodedToken: userModel = jwtDecode(token);
-      handleConfirmEmail(decodedToken.id, confirmToken!);
+      handleConfirmEmail(decodedToken.id, decodedToken.role, confirmToken!);
     }
   }, []);
 

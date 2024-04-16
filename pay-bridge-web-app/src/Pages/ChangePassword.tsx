@@ -11,7 +11,6 @@ import {
 import payBridgeSm from "../assets/images/paybridge-sm.png";
 import { MiniLoader } from "../Components/Common";
 import inputHelper from "../Helper/inputHelper";
-import { toast } from "react-toastify";
 import toastNotify from "../Helper/toastNotify";
 import {
   emptyUserState,
@@ -21,6 +20,10 @@ import {
   emptyProflieState,
   setProfileState,
 } from "../Storage/Redux/personalAccountHolderSlice";
+import {
+  setManagerState,
+  emptyManagerState,
+} from "../Storage/Redux/managerSlice";
 
 function ChangePassword() {
   const { login, confirmToken } = useParams();
@@ -71,6 +74,7 @@ function ChangePassword() {
       if (userData.id !== "") {
         localStorage.removeItem("token");
         dispatch(setProfileState({ ...emptyProflieState }));
+        dispatch(setManagerState({ ...emptyManagerState }));
         dispatch(setLoggedInUser({ ...emptyUserState }));
       }
       location.reload();

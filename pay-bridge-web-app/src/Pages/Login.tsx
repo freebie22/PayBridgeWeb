@@ -48,7 +48,6 @@ function Login() {
       dispatch(setLoggedInUser({ id, userName, email, role }));
       toastNotify(`Авторизація успішна. Вітаємо Вас, ${userName}!`);
       navigate("/");
-      console.log({ id, userName, email, role });
     } else if (response.error) {
       setError(response.error.data.errorMessages[0]);
     }
