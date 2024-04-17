@@ -9,7 +9,7 @@ function Footer() {
   }, []);
     
   return (
-    <div className='footer fixed-bottom text-center p-3 bg-dark' style={{color: "#0DA378"}}>
+    <div id="footer" className='footer text-center mt-4 p-3 bg-dark' style={{color: "#0DA378"}}>
         PayBridge Web Service &copy; Made by freebie in {currentYear}
     </div>
   )

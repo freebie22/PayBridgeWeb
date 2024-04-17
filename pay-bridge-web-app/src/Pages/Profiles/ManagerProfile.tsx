@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ManagerModel, apiResponse, userModel } from "../../Interfaces";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
@@ -30,6 +30,15 @@ function ManagerProfile() {
     login: "",
     oldPassword: "",
   }));
+
+  useEffect(() => {
+    const foot = document.getElementById("footer");
+    foot?.classList.add("fixed-bottom");
+
+    return () => {
+      foot?.classList.remove("fixed-bottom");
+    };
+  }, []);
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [passwordLoading, setPasswordLoading] = useState<boolean>(false);
@@ -218,6 +227,25 @@ function ManagerProfile() {
               </div>
             </div>
           </div>
+          <div
+            style={{ backgroundColor: "#212529" }}
+            className="card mb-4"
+          >
+            <div className="card-body text-white text-center">
+              <h4 className="my-3">
+                Чат
+              </h4>
+              <div className="d-flex justify-content-center mb-2">
+                  <button
+                    onClick={() => navigate("/chat")}
+                    type="button"
+                    className="btn btn-outline-primary text-white ms-1"
+                  >
+                    Перейти до чату
+                  </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="col-lg-8">
           <div
@@ -272,6 +300,51 @@ function ManagerProfile() {
                   <p className="text-white text-center mb-0">
                     {managerData.isActive ? "Так" : "Ні"}
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={{ backgroundColor: "#212529", color: "#0DA378" }}
+            className="card mb-3"
+          >
+            <div className="card-body">
+              <h2 className="m-2 mb-4 text-center" style={{ color: "#FFF" }}>
+                Куточок менеджера
+              </h2>
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Керування банками</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">Перейти до банків</button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Банківські рахунки клієнтів</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">Перейти до рахунків</button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Банківські рахунки компаній / ФОП</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">Перейти до рахунків</button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Транзакції</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">Перейти до транзакцій</button>
                 </div>
               </div>
             </div>

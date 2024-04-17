@@ -3,9 +3,18 @@ import logo from "../assets/images/logo.jpg";
 import payBridge from "../assets/images/paybridge-wb.png";
 import payBridgeSm from "../assets/images/paybridge-sm.png";
 import financialImage from "../assets/images/financialImage.jpg";
+import { useLocation, useNavigate } from "react-router-dom";
+import toastNotify from "../Helper/toastNotify";
 // import "../Styles/homeStyle.css";
+import privatBankImg from "../assets/images/bankImages/privatbank.png"
+import oschadBankImg from "../assets/images/bankImages/oschadbank.png"
+import ukrGazBankImg from "../assets/images/bankImages/ukrgaz.png"
+import raifBank from "../assets/images/bankImages/raif.png"
 
 function Home() {
+
+  const navigate = useNavigate();
+
   return (
     <div className="container p-3">
       <div
@@ -38,10 +47,9 @@ function Home() {
               У нашому сервісі Ви можете зареєструвати власні банківські
               рахунки, та додати платіжні картки відповідних банків. Також, Ви
               можете створити корпоративинй аккаунт і виконувати фінансові
-              операції. Детальніше про різні типи облікових записів Ви можете
-              дізнатись на відповідній сторінці.
+              операції.
             </h5>
-            <button className="btn btn-success mt-1">Детальніше</button>
+            <button onClick={() => navigate("/infoPage")} className="btn btn-success mt-1">Детальніше</button>
           </div>
           <div className="col-lg-6">
             <div
@@ -63,48 +71,16 @@ function Home() {
         id="third-container"
         style={{ backgroundColor: "#1F2029" }}
       >
-        <h4 className="p-3 text-center" style={{ color: "#0DA378" }}>
-          Наші клієнти
+        <h4 className="pt-2 text-center" style={{ color: "#0DA378" }}>
+          Наші партнери
         </h4>
-        {/* <div className="form-group justify-content-center text-center pb-3">
-        <div className="row col-8 justify-content-center slider mx-auto">
-          <div className="slide">
-            <img
-              className=""
-              src="/images/istockphoto-1081481926-612x612-transformed.jpeg"
-              width="100%"
-            />
-          </div>
-          <div className="slide">
-            <img
-              className=""
-              src="/images/istockphoto-1147618892-612x612-transformed.jpeg"
-              width="100%"
-            />
-          </div>
-          <div className="slide">
-            <img
-              className=""
-              src="/images/istockphoto-1446754567-612x612-transformed.jpeg"
-              width="100%"
-            />
-          </div>
-          <div className="slide">
-            <img
-              className=""
-              src="/images/istockphoto-859611724-612x612-transformed.jpeg"
-              width="100%"
-            />
-          </div>
-          <div className="slide">
-            <img
-              className=""
-              src="/images/istockphoto-876914486-612x612-transformed.jpeg"
-              width="100%"
-            />
-          </div>
+        <div style={{backgroundColor: "#FFF"}} className="col-12 rounded mb-2 d-flex justify-content-center align-items-center">
+          <img src={privatBankImg} alt="" className="col-3 p-3"></img>
+          <img src={oschadBankImg} alt="" className="col-3 p-3"></img>
+          <img src={ukrGazBankImg} alt="" className="col-3 p-3"></img>
+          <img src={raifBank} alt="" className="col-3 p-3"></img>
         </div>
-      </div> */}
+        <br></br>
       </div>
       <div
         className="container p-2 mt-3 rounded"
@@ -157,7 +133,7 @@ function Home() {
             </div>
             <div className="d-flex justify-content-center align-items-center">
               <img
-              className="mt-1"
+                className="mt-1"
                 src={payBridgeSm}
                 style={{ maxHeight: "40px" }}
                 alt="avatar"

@@ -42,12 +42,12 @@ function PersonalAccountHolderProfile() {
   );
 
   useEffect(() => {
-    if (location.state && location.state.successMessage) {
-      toastNotify(location.state.successMessage);
-    }
-    if (location.state && location.state.errorMessage) {
-      toastNotify(location.state.errorMessage, "error");
-    }
+    const foot = document.getElementById("footer");
+    foot?.classList.add("fixed-bottom");
+
+    return () => {
+      foot?.classList.remove("fixed-bottom");
+    };
   }, []);
 
   const [makeEmailConfirmationRequest] = useConfirmEmailRequestMutation();
@@ -95,7 +95,9 @@ function PersonalAccountHolderProfile() {
       navigate(
         `/changePassword/${response.data.result.login}/${response.data.result.token}`
       );
-      toastNotify("Для зміни паролю, введіть новий пароль та підтвердіть його.");
+      toastNotify(
+        "Для зміни паролю, введіть новий пароль та підтвердіть його."
+      );
     } else {
       toastNotify(response.error.data.errorMessages[0], "error");
     }
@@ -201,11 +203,15 @@ function PersonalAccountHolderProfile() {
                         </div>
                       </div>
                       <button
-                      disabled={passowrdLoading}
+                        disabled={passowrdLoading}
                         type="submit"
                         className="btn btn-success mx-2 mt-4"
                       >
-                        {passowrdLoading ? (<MiniLoader></MiniLoader>) : "Підтвердити зміну паролю"}
+                        {passowrdLoading ? (
+                          <MiniLoader></MiniLoader>
+                        ) : (
+                          "Підтвердити зміну паролю"
+                        )}
                       </button>
 
                       <button

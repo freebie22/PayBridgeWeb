@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLoginUserMutation } from "../APIs/userAPI";
 import { apiResponse, userModel } from "../Interfaces";
@@ -8,7 +8,7 @@ import inputHelper from "../Helper/inputHelper";
 import toastNotify from "../Helper/toastNotify";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MainLoader } from "../Components/Common";
-import payBridgeSm from "../assets/images/paybridge-sm.png"
+import payBridgeSm from "../assets/images/paybridge-sm.png";
 
 function Login() {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -16,6 +16,15 @@ function Login() {
     login: "",
     password: "",
   });
+
+  useEffect(() => {
+    const foot = document.getElementById("footer");
+    foot?.classList.add("fixed-bottom");
+
+    return () => {
+      foot?.classList.remove("fixed-bottom");
+    };
+  }, []);
 
   const [error, setError] = useState(null);
 
@@ -55,12 +64,19 @@ function Login() {
     setLoading(false);
   };
 
-
   return (
-    <div className="container mt-5 pt-2 rounded text-center" style={{backgroundColor: "#212529", maxWidth: "50%"}}>
+    <div
+      className="container mt-5 pt-2 rounded text-center"
+      style={{ backgroundColor: "#212529", maxWidth: "50%" }}
+    >
       {isLoading && <MainLoader></MainLoader>}
       <form onSubmit={handleSubmit} method="post">
-        <img className="" src={payBridgeSm} alt="" style={{maxHeight: "70px"}}></img>
+        <img
+          className=""
+          src={payBridgeSm}
+          alt=""
+          style={{ maxHeight: "70px" }}
+        ></img>
         <h1 className="text-white">Вхід до облікового запису</h1>
         <div className="mt-3">
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
@@ -87,7 +103,9 @@ function Login() {
           </div>
         </div>
         <div className="mt-3">
-          <NavLink to="/forgotPassword" className="text-white">Забули пароль ?</NavLink>
+          <NavLink to="/forgotPassword" className="text-white">
+            Забули пароль ?
+          </NavLink>
         </div>
         <div className="mt-2">
           {error ? (

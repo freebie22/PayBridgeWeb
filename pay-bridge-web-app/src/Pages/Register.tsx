@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useRegisterUserMutation } from "../APIs/userAPI";
 import { useNavigate } from "react-router-dom";
 import inputHelper from "../Helper/inputHelper";
@@ -26,32 +26,39 @@ function Register() {
     setUserInput(tempData);
   };
 
-  const handleFileChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    const foot = document.getElementById("footer");
+    foot?.classList.add("fixed-bottom");
+
+    return () => {
+      foot?.classList.remove("fixed-bottom");
+    };
+  }, []);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
 
-    if(file) {
-        const imgType = file.type.split("/")[1];
-        const validImgTypes = ["jpg", "jpeg", "png"];
+    if (file) {
+      const imgType = file.type.split("/")[1];
+      const validImgTypes = ["jpg", "jpeg", "png"];
 
-        const isImageTypeValid = validImgTypes.filter((e) => {
-            return (e = imgType);
-        })
+      const isImageTypeValid = validImgTypes.filter((e) => {
+        return (e = imgType);
+      });
 
-        if(file.size > 1000 * 1024)
-        {
-            setImageToStore("");
-            return;
-        }
-        else if(isImageTypeValid.length === 0){
-            setImageToStore("");
-            return;
-        }
+      if (file.size > 1000 * 1024) {
+        setImageToStore("");
+        return;
+      } else if (isImageTypeValid.length === 0) {
+        setImageToStore("");
+        return;
+      }
 
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        setImageToStore(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      setImageToStore(file);
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,9 +79,9 @@ function Register() {
     formData.append("email", userInput.email);
     formData.append("phoneNumber", userInput.phoneNumber);
     formData.append("role", userInput.role);
-    if(imageToStore) formData.append("profileImage", imageToStore);
+    if (imageToStore) formData.append("profileImage", imageToStore);
 
-    let response : apiResponse = await registerUser(formData);
+    let response: apiResponse = await registerUser(formData);
 
     if (response.data && response.data.isSuccess) {
       toastNotify(
@@ -87,11 +94,12 @@ function Register() {
     setLoading(false);
   };
 
-  return <div className="container text-center">
-    <form onSubmit={handleSubmit} encType="multipart/form-data" method="post">
+  return (
+    <div className="container text-center">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" method="post">
         <h1 className="mt-5">Реєстрація</h1>
         <div className="mt-5">
-        <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
+          <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
             <input
               type="text"
               className="form-control"
@@ -144,12 +152,13 @@ function Register() {
           </div>
         </div>
         <div className="mt-5">
-            <button type="submit" className = "btn btn-success">
-                {isLoading ? (<MainLoader></MainLoader>) : "Зареєструватись"}
-            </button>
+          <button type="submit" className="btn btn-success">
+            {isLoading ? <MainLoader></MainLoader> : "Зареєструватись"}
+          </button>
         </div>
-    </form>
-  </div>;
+      </form>
+    </div>
+  );
 }
 
 export default Register;

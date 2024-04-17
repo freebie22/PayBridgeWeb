@@ -4,5 +4,6 @@ import PersonalAccountHolderProfile from "./Profiles/PersonalAccountHolderProfil
 import Home from "./Home";
 import ForgotPassword from "./ForgotPassword";
 import ChangePassword from "./ChangePassword";
+import InfoPage from "./InfoPage";
 
-export {Login, Register, PersonalAccountHolderProfile, Home, ForgotPassword, ChangePassword}
+export {Login, Register, PersonalAccountHolderProfile, Home, ForgotPassword, ChangePassword, InfoPage}

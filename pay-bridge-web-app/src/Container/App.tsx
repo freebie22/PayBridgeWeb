@@ -5,6 +5,7 @@ import {
   ChangePassword,
   ForgotPassword,
   Home,
+  InfoPage,
   Login,
   PersonalAccountHolderProfile,
   Register,
@@ -90,6 +91,7 @@ function App() {
           path="/emailConfirmation/:confirmToken"
           element={<EmailConfirmation></EmailConfirmation>}
         ></Route>
+        <Route path="/infoPage" element={<InfoPage></InfoPage>}></Route>
       </Routes>
       <Footer></Footer>
     </div>
