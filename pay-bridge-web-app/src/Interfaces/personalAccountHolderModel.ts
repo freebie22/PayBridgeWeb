@@ -1,4 +1,5 @@
 export default interface personalAccountHolderProfileModel {
+  accountId: number,
   firstName: string;
   lastName: string;
   middleName: string;

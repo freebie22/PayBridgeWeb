@@ -105,6 +105,8 @@ function ManagerProfile() {
     setPasswordInfo(tempData);
   };
 
+
+
   return (
     <div className="container py-5">
       <div
@@ -326,7 +328,7 @@ function ManagerProfile() {
                   <p className="mb-0 text-center">Банківські рахунки клієнтів</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button className="btn text-white btn-outline-success">Перейти до рахунків</button>
+                  <button onClick={() => navigate("/managerProfile/bankAccounts")} className="btn text-white btn-outline-success">Перейти до рахунків</button>
                 </div>
               </div>
               <hr />

@@ -8,6 +8,8 @@ import managerApi from "../../APIs/managerAPI";
 import { managerReducer } from "./managerSlice";
 import bankAccountApi from "../../APIs/bankAccountAPI";
 import { bankAccountReducer } from "./bankAccountSlice";
+import bankApi from "../../APIs/bankAPI";
+import { bankSliceReducer } from "./bankSlice";
 
 
 
@@ -18,13 +20,15 @@ const store = configureStore({
         changePasswordStore : ChangePasswordReducer,
         managerStore : managerReducer,
         bankAccountStore : bankAccountReducer,
+        bankStore : bankSliceReducer,
         [authApi.reducerPath] : authApi.reducer,
         [accountHolderApi.reducerPath] : accountHolderApi.reducer,
         [managerApi.reducerPath] : managerApi.reducer,
-        [bankAccountApi.reducerPath] : bankAccountApi.reducer
+        [bankAccountApi.reducerPath] : bankAccountApi.reducer,
+        [bankApi.reducerPath] : bankApi.reducer
     },
     middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(authApi.middleware).concat(accountHolderApi.middleware).concat(managerApi.middleware).concat(bankAccountApi.middleware)
+        getDefaultMiddleware().concat(authApi.middleware).concat(accountHolderApi.middleware).concat(managerApi.middleware).concat(bankAccountApi.middleware).concat(bankApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { personalAccountHolderProfileModel } from "../../Interfaces";
 
 export const emptyProflieState: personalAccountHolderProfileModel = {
+  accountId: 0,
   firstName: "",
   lastName: "",
   middleName: "",
@@ -25,6 +26,7 @@ export const PersonalAccountHolderProfileSlice = createSlice({
   initialState: emptyProflieState,
   reducers: {
     setProfileState: (state, action) => {
+      state.accountId = action.payload.accountId;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.middleName = action.payload.middleName;

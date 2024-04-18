@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   apiResponse,
+  bankAccountModel,
   personalAccountHolderProfileModel,
   userModel,
 } from "../../Interfaces";
@@ -17,6 +18,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import payBridgeSm from "../../assets/images/paybridge-sm.png";
 import { withAuth } from "../../HOC";
 import inputHelper from "../../Helper/inputHelper";
+import { useGetPersonalBankAccountsQuery } from "../../APIs/bankAccountAPI";
+import { setUserBankAccounts } from "../../Storage/Redux/bankAccountSlice";
 
 function PersonalAccountHolderProfile() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,6 +30,7 @@ function PersonalAccountHolderProfile() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [passwordInfo, setPasswordInfo] = useState(() => ({
     login: "",
@@ -109,6 +113,7 @@ function PersonalAccountHolderProfile() {
     setPasswordButtonActive((previousState) => !previousState);
     setPasswordInfo({ login: "", oldPassword: "" });
   };
+
 
   return (
     <div className="container py-5">
@@ -345,6 +350,48 @@ function PersonalAccountHolderProfile() {
                   <p className="text-white text-center mb-0">
                     {profileData.passportSeries} - {profileData.passportNumber}
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={{ backgroundColor: "#212529", color: "#0DA378" }}
+            className="card mb-3"
+          >
+            <div className="card-body">
+              <h2 className="m-2 mb-4 text-center" style={{ color: "#FFF" }}>
+                Куточок клієнта
+              </h2>
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Мої рахунки</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button onClick={() => navigate("/myProfile/myBankAccounts")} className="btn text-white btn-outline-success">
+                    Перейти до рахунків
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Мої банківські картки</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">
+                    Перейти до карток
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Мої транзакції</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button className="btn text-white btn-outline-success">
+                    Перейти до транзакцій
+                  </button>
                 </div>
               </div>
             </div>

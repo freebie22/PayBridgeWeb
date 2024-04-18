@@ -6,21 +6,35 @@ const bankAccountApi = createApi({
     baseQuery : fetchBaseQuery({
         baseUrl: "https://localhost:7112/api",
     }),
+    tagTypes: ["personalBankAccounts"],
     endpoints: (builder) => ({
         getPersonalBankAccounts : builder.query({
-            query: () => ({
+            query: (accountHolderId?) => ({
                 url: "/account/getPersonalBankAccounts",
-                method: "GET"
-            })
+                method: "GET",
+                params: {
+                    accountHolderId
+                }
+            }),
+            providesTags: ["personalBankAccounts"]
         }),
         getPersonalBankAccountByHolderId : builder.query({
-            query: (holderId) => ({
-                url: `/account/getPersonalBankAccounts/${holderId}`,
+            query: (accountId) => ({
+                url: `/account/getPersonalBankAccount/${accountId}`,
                 method: "GET"
-            })
+            }),
+            providesTags: ["personalBankAccounts"]
         }),
+        registerPersonalBankAccount : builder.mutation({
+            query: (accountBody) => ({
+                url : "/account/RegisterPersonalBankAccount",
+                method : "POST",
+                body : accountBody
+            }),
+            invalidatesTags : ["personalBankAccounts"]
+        })
     })
 })
 
-export const {useGetPersonalBankAccountsQuery, useGetPersonalBankAccountByHolderIdQuery} = bankAccountApi;
+export const {useGetPersonalBankAccountsQuery, useGetPersonalBankAccountByHolderIdQuery, useRegisterPersonalBankAccountMutation} = bankAccountApi;
 export default bankAccountApi;

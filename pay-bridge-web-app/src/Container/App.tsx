@@ -7,6 +7,7 @@ import {
   Home,
   InfoPage,
   Login,
+  MyBankAccounts,
   PersonalAccountHolderProfile,
   Register,
 } from "../Pages";
@@ -21,6 +22,7 @@ import EmailConfirmation from "../Pages/EmailConfirmation";
 import { useGetManagerByIdQuery } from "../APIs/managerAPI";
 import { setManagerState } from "../Storage/Redux/managerSlice";
 import ManagerProfile from "../Pages/Profiles/ManagerProfile";
+import BankAccounts from "../Pages/BankAccounts";
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +88,8 @@ function App() {
             <PersonalAccountHolderProfile></PersonalAccountHolderProfile>
           }
         ></Route>
+        <Route path="/myProfile/myBankAccounts" element={<MyBankAccounts></MyBankAccounts>}></Route>
+        <Route path="/managerProfile/bankAccounts" element={<BankAccounts></BankAccounts>}></Route>
         <Route path = "/managerProfile" element={<ManagerProfile></ManagerProfile>}></Route>
         <Route
           path="/emailConfirmation/:confirmToken"
