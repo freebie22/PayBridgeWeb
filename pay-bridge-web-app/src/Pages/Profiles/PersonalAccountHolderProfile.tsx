@@ -114,7 +114,6 @@ function PersonalAccountHolderProfile() {
     setPasswordInfo({ login: "", oldPassword: "" });
   };
 
-
   return (
     <div className="container py-5">
       <div
@@ -367,7 +366,10 @@ function PersonalAccountHolderProfile() {
                   <p className="mb-0 text-center">Мої рахунки</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button onClick={() => navigate("/myProfile/myBankAccounts")} className="btn text-white btn-outline-success">
+                  <button
+                    onClick={() => navigate("/myProfile/myBankAccounts")}
+                    className="btn text-white btn-outline-success"
+                  >
                     Перейти до рахунків
                   </button>
                 </div>
@@ -378,7 +380,10 @@ function PersonalAccountHolderProfile() {
                   <p className="mb-0 text-center">Мої банківські картки</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button className="btn text-white btn-outline-success">
+                  <button
+                    onClick={() => navigate("/myProfile/myBankCards")}
+                    className="btn text-white btn-outline-success"
+                  >
                     Перейти до карток
                   </button>
                 </div>

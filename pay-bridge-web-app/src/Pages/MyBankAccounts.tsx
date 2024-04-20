@@ -80,13 +80,35 @@ function MyBankAccounts() {
 
     if (response.data && response.data.isSuccess) {
       setCreatingNewAccount(false);
+      localStorage.setItem(
+        "toastMessage",
+        JSON.stringify({
+          message: response.data.result.toString(),
+          type: "success",
+        })
+      );
       location.reload();
-      toastNotify(response.data.result.toString(), "success");
     } else {
-      toastNotify(response.error.data.errorMessages[0], "error");
+      localStorage.setItem(
+        "toastMessage",
+        JSON.stringify({
+          message: response.error.data.errorMessages[0],
+          type: "error",
+        })
+      );
+      location.reload();
     }
 
     setFormLoading(false);
+  };
+
+  window.onload = () => {
+    const storedMessage = localStorage.getItem("toastMessage");
+    if (storedMessage) {
+      const { message, type } = JSON.parse(storedMessage);
+      toastNotify(message, type);
+      localStorage.removeItem("toastMessage");
+    }
   };
 
   const handleSelectBank = (bankId: number) => {
@@ -132,7 +154,11 @@ function MyBankAccounts() {
                     disabled={isFormLoading}
                     className="btn form-control btn-outline-success text-white w-50 mb-3 d-block mx-auto"
                   >
-                    {isFormLoading ? (<MiniLoader></MiniLoader>) : "Зареєструвати новий рахунок"}
+                    {isFormLoading ? (
+                      <MiniLoader></MiniLoader>
+                    ) : (
+                      "Зареєструвати новий рахунок"
+                    )}
                   </button>
                   <button
                     type="button"

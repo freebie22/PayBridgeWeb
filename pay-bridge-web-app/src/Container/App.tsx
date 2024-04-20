@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { Footer, Header } from "../Layout";
 import { Route, Routes } from "react-router-dom";
 import {
+  BankCards,
   ChangePassword,
   ForgotPassword,
   Home,
   InfoPage,
   Login,
   MyBankAccounts,
+  MyBankCards,
   PersonalAccountHolderProfile,
   Register,
 } from "../Pages";
@@ -88,9 +90,26 @@ function App() {
             <PersonalAccountHolderProfile></PersonalAccountHolderProfile>
           }
         ></Route>
-        <Route path="/myProfile/myBankAccounts" element={<MyBankAccounts></MyBankAccounts>}></Route>
-        <Route path="/managerProfile/bankAccounts" element={<BankAccounts></BankAccounts>}></Route>
-        <Route path = "/managerProfile" element={<ManagerProfile></ManagerProfile>}></Route>
+        <Route
+          path="/myProfile/myBankAccounts"
+          element={<MyBankAccounts></MyBankAccounts>}
+        ></Route>
+        <Route
+          path="/managerProfile/bankAccounts"
+          element={<BankAccounts></BankAccounts>}
+        ></Route>
+        <Route
+          path="/myProfile/myBankCards"
+          element={<MyBankCards></MyBankCards>}
+        ></Route>
+        <Route
+          path="/managerProfile/bankCards"
+          element={<BankCards></BankCards>}
+        ></Route>
+        <Route
+          path="/managerProfile"
+          element={<ManagerProfile></ManagerProfile>}
+        ></Route>
         <Route
           path="/emailConfirmation/:confirmToken"
           element={<EmailConfirmation></EmailConfirmation>}
