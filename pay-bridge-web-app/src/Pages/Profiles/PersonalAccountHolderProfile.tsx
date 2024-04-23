@@ -394,7 +394,7 @@ function PersonalAccountHolderProfile() {
                   <p className="mb-0 text-center">Мої транзакції</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button className="btn text-white btn-outline-success">
+                  <button className="btn text-white btn-outline-success" onClick={() => navigate("/myProfile/myTransactions")}>
                     Перейти до транзакцій
                   </button>
                 </div>

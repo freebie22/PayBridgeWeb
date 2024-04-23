@@ -12,6 +12,8 @@ import bankApi from "../../APIs/bankAPI";
 import { bankSliceReducer } from "./bankSlice";
 import bankCard_AssetAPI from "../../APIs/bankCard_AssetAPI";
 import { bankCard_AssetReducer } from "./bankCard_AssetSlice";
+import transactionAPI from "../../APIs/transactionAPI";
+import { transactionReducer } from "./transactionSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,12 +24,14 @@ const store = configureStore({
     bankAccountStore: bankAccountReducer,
     bankStore: bankSliceReducer,
     bankCard_AssetStore: bankCard_AssetReducer,
+    transactionStore: transactionReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountHolderApi.reducerPath]: accountHolderApi.reducer,
     [managerApi.reducerPath]: managerApi.reducer,
     [bankAccountApi.reducerPath]: bankAccountApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [bankCard_AssetAPI.reducerPath]: bankCard_AssetAPI.reducer,
+    [transactionAPI.reducerPath] : transactionAPI.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -36,7 +40,8 @@ const store = configureStore({
       .concat(managerApi.middleware)
       .concat(bankAccountApi.middleware)
       .concat(bankApi.middleware)
-      .concat(bankCard_AssetAPI.middleware),
+      .concat(bankCard_AssetAPI.middleware)
+      .concat(transactionAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

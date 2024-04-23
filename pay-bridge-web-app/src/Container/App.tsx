@@ -25,6 +25,7 @@ import { useGetManagerByIdQuery } from "../APIs/managerAPI";
 import { setManagerState } from "../Storage/Redux/managerSlice";
 import ManagerProfile from "../Pages/Profiles/ManagerProfile";
 import BankAccounts from "../Pages/BankAccounts";
+import MyTransactions from "../Pages/Transactions/MyTransactions";
 
 function App() {
   const dispatch = useDispatch();
@@ -106,6 +107,7 @@ function App() {
           path="/managerProfile/bankCards"
           element={<BankCards></BankCards>}
         ></Route>
+        <Route path="/myProfile/myTransactions" element={<MyTransactions></MyTransactions>}></Route>
         <Route
           path="/managerProfile"
           element={<ManagerProfile></ManagerProfile>}
