@@ -1,8 +1,50 @@
 import React from 'react'
+import { personalAccountHolderProfileModel, userToUserTransactionModel } from '../../Interfaces'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../Storage/Redux/store'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-function TransactionCard() {
+
+interface TransactionProps
+{
+  transaction : userToUserTransactionModel 
+}
+
+function TransactionCard(props: TransactionProps) {
+
+  const navigate = useNavigate();
+
+  const profileData: personalAccountHolderProfileModel = useSelector((state: RootState) => state.personalAccountHolderStore);
+
+  const setCurrencySign = (currencyCode: string) : string => {
+      let currencySign : string = "";
+      switch(currencyCode.toLocaleLowerCase()){
+          case "uah": {
+            currencySign = "₴";
+            break;
+          }
+          case "usd": {
+            currencySign = "$";
+            break;
+          }
+          case "eur": {
+            currencySign = "€";
+            break;
+          }
+      }
+      return currencySign;
+  }
+
   return (
-    <div>TransactionCard</div>
+    <div className="card shadow-sm mb-4" style={{borderColor: "#0DA378", borderBottomColor: "#0DA378", backgroundColor: "#212529"}}>
+      <div className="card-header text-white text-center" style={{borderBottomColor: "#0DA378"}}>{props.transaction.transactionType}</div>
+      <div className="card-body" style={{color: "#0DA378"}}>
+        <h5 className="card-title">Сума операції: <span className='text-white'>{props.transaction.amount} {setCurrencySign(props.transaction.currencyCode)}</span> {props.transaction.receiverHolderId === profileData.accountId ? (<span className='text-success' style={{fontSize: "26px"}}>↑</span>) : (<span className='text-danger' style={{fontSize: "26px"}}>↓</span>)}</h5>
+        <p className="card-text">Опис:  <span className='text-white'>{props.transaction.description}</span> </p>
+        <p className="card-text">Дата транзакції:  <span className='text-white'>{props.transaction.dateOfTransaction}</span></p>
+      </div>
+      <button className='btn btn-warning mx-auto mb-3' onClick={() => navigate(`/myProfile/transactionDetails/${props.transaction.transactionUniqueNumber}`)}>Детальніше</button>
+    </div>
   )
 }
 

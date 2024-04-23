@@ -14,16 +14,16 @@ export const transactionSlice = createSlice({
     initialState: emptyTransactionState,
     reducers: {
         setUserToUserTransactions: (state, action) => {
-            state.userToUserTransactions = action.payload.userToUserTransactions;
+            state.userToUserTransactions = action.payload;
         },
         setUserToCompanyTransactions: (state, action) => {
-            state.userToCompanyTranasctions = action.payload.userToCompanyTransactions;
+            state.userToCompanyTranasctions = action.payload;
         },
         setCompanyToUserTransactions: (state, action) => {
-            state.companyToUserTransactions = action.payload.companyToUserTransactions;
+            state.companyToUserTransactions = action.payload;
         },
         setCompanyToCompanyTransactions: (state, action) => {
-            state.companyToCompanyTransactions = action.payload.companyToCompanyTransactions;
+            state.companyToCompanyTransactions = action.payload;
         }
     }
 })

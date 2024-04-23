@@ -20,7 +20,7 @@ const transactionAPI = createApi({
         }),
         getUserToUserTransactionById: builder.query({
             query: (transactionNumber) => ({
-                url: `transactions/GetUserToUserTransaction/${transactionNumber}`,
+                url: `transactions/GetUserToUserTransaction`,
                 method: "GET",
                 params: {
                     transactionNumber: transactionNumber

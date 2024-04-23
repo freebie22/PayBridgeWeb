@@ -26,6 +26,7 @@ import { setManagerState } from "../Storage/Redux/managerSlice";
 import ManagerProfile from "../Pages/Profiles/ManagerProfile";
 import BankAccounts from "../Pages/BankAccounts";
 import MyTransactions from "../Pages/Transactions/MyTransactions";
+import TransactionDetails from "../Pages/Transactions/TransactionDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ function App() {
           element={<BankCards></BankCards>}
         ></Route>
         <Route path="/myProfile/myTransactions" element={<MyTransactions></MyTransactions>}></Route>
+        <Route path="/myProfile/transactionDetails/:transactionUniqueNumber?" element={<TransactionDetails></TransactionDetails>}></Route>
         <Route
           path="/managerProfile"
           element={<ManagerProfile></ManagerProfile>}
