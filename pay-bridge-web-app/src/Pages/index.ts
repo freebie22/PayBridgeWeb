@@ -13,5 +13,6 @@ import BankCardCard from "./BankCards_Assets/BankCardCard";
 import AllTransactions from "./Transactions/AllTransactions";
 import MyTransactions from "./Transactions/MyTransactions";
 import TransactionCard from "./Transactions/TransactionCard";
+import ServiceCatalog from "./ServiceCatalog";
 
-export {Login, Register, PersonalAccountHolderProfile, Home, ForgotPassword, ChangePassword, InfoPage, MyBankAccounts, BankAccountCard, BankCards, MyBankCards, BankCardCard}
+export {Login, Register, PersonalAccountHolderProfile, Home, ForgotPassword, ChangePassword, InfoPage, MyBankAccounts, BankAccountCard, BankCards, MyBankCards, BankCardCard, ServiceCatalog}

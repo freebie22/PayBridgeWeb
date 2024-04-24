@@ -20,19 +20,6 @@ function BankCardCard(props: BankCardProps) {
     "РАЙФФАЙЗЕН БАНК АВАЛЬ",
   ];
 
-  const splitBankCardNumber = (cardNumber: string): string => {
-    let splittedCardNumber: string = "";
-
-    for (let i = 0; i < cardNumber.length; i++) {
-      if (i > 0 && i % 4 === 0) {
-        splittedCardNumber += " ";
-      }
-      splittedCardNumber += cardNumber[i];
-    }
-
-    return splittedCardNumber;
-  };
-
   const setBankCardImage = (bankName: string): string | undefined => {
     let foundBank = bankNames.find((bank) => bankName.includes(bank));
     let bankLogo = "";
@@ -100,7 +87,7 @@ function BankCardCard(props: BankCardProps) {
           </div>
         </div>
         <div className="bank-card-number">
-          {splitBankCardNumber(props.bankCard.cardNumber)}
+          {props.bankCard.cardNumber}
         </div>
         <div className="bank-card-expires text-end">
           {props.bankCard.expiryDate}

@@ -28,10 +28,17 @@ const transactionAPI = createApi({
             }),
             providesTags: ["UserToUserTransactions"]
         }),
-
+        makeUserToUserTransaction: builder.mutation({
+            query: (transactionBody) => ({
+                url: "transactions/MakeUserToUserTransaction",
+                method: "POST",
+                body: transactionBody
+            }),
+            invalidatesTags: ["UserToUserTransactions"]
+        })
     })
 
 })
 
-export const {useGetUserToUserTransactionsQuery, useGetUserToUserTransactionByIdQuery} = transactionAPI;
+export const {useGetUserToUserTransactionsQuery, useGetUserToUserTransactionByIdQuery, useMakeUserToUserTransactionMutation} = transactionAPI;
 export default transactionAPI;

@@ -43,10 +43,10 @@ function MyTransactions() {
   return (
     <div
       className="container rounded pt-3 mt-3"
-      style={{ backgroundColor: "#212529" }}
+      style={{ backgroundColor: "#212529"}}
     >
       <div className="d-flex justify-content-center align-items-center">
-        <h3 className="text-white">Ваші транзакції</h3>
+        <h3 className="text-white">Історія операцій</h3>
       </div>
       {userToUserTransactionsStore &&
         userToUserTransactionsStore.map(

@@ -12,6 +12,7 @@ import {
   MyBankCards,
   PersonalAccountHolderProfile,
   Register,
+  ServiceCatalog,
 } from "../Pages";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
@@ -119,6 +120,7 @@ function App() {
           element={<EmailConfirmation></EmailConfirmation>}
         ></Route>
         <Route path="/infoPage" element={<InfoPage></InfoPage>}></Route>
+        <Route path="/serviceCatalog" element={<ServiceCatalog></ServiceCatalog>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

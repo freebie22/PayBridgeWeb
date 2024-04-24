@@ -77,9 +77,9 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item pt-1">
-              <a style={{ color: "white" }} className="nav-link" href="#">
+              <NavLink style={{ color: "white" }} className="nav-link" to="/serviceCatalog">
                 <h5 className="p-1 m-1">Каталог послуг</h5>
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item  pt-1">
               <NavLink style={{ color: "white" }} className="nav-link" to="/infoPage">
