@@ -15,6 +15,16 @@ function Home() {
 
   const navigate = useNavigate();
 
+  window.onload = () => {
+    let storedMessage = localStorage.getItem("storedMessage");
+    if(storedMessage)
+      {
+        const {message, type} = JSON.parse(storedMessage);
+        toastNotify(message, type);
+        localStorage.removeItem("storedMessage");
+      }
+  }
+
   return (
     <div className="container p-3">
       <div

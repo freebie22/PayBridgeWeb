@@ -14,6 +14,7 @@ import bankCard_AssetAPI from "../../APIs/bankCard_AssetAPI";
 import { bankCard_AssetReducer } from "./bankCard_AssetSlice";
 import transactionAPI from "../../APIs/transactionAPI";
 import { transactionReducer } from "./transactionSlice";
+import { citiesAndVillagesReducer } from "./cititesAndVillagesSlice";
 
 const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ const store = configureStore({
     bankStore: bankSliceReducer,
     bankCard_AssetStore: bankCard_AssetReducer,
     transactionStore: transactionReducer,
+    citiesAndVillagesStore: citiesAndVillagesReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountHolderApi.reducerPath]: accountHolderApi.reducer,
     [managerApi.reducerPath]: managerApi.reducer,

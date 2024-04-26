@@ -26,8 +26,16 @@ const accountHolderApi = createApi({
             }),
             providesTags : ["PersonalAccountHolders"]
         }),
+        createPersonalAccountHolder : builder.mutation({
+            query: (holderBody) => ({
+                url: "accountHolder/CreatePersonalAccountHolder",
+                method: "POST",
+                body : holderBody
+            }),
+            invalidatesTags : ["PersonalAccountHolders"]
+        })
     })
 })
 
-export const {useGetPersonalAccountHoldersQuery, useGetPersonalAccountHolderByUserIdQuery} = accountHolderApi;
+export const {useGetPersonalAccountHoldersQuery, useGetPersonalAccountHolderByUserIdQuery, useCreatePersonalAccountHolderMutation} = accountHolderApi;
 export default accountHolderApi;

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   BankCards,
   ChangePassword,
+  CorporateAccountHolderRegister,
   ForgotPassword,
   Home,
   InfoPage,
@@ -11,6 +12,7 @@ import {
   MyBankAccounts,
   MyBankCards,
   PersonalAccountHolderProfile,
+  PersonalAccountHolderRegister,
   Register,
   ServiceCatalog,
 } from "../Pages";
@@ -121,6 +123,8 @@ function App() {
         ></Route>
         <Route path="/infoPage" element={<InfoPage></InfoPage>}></Route>
         <Route path="/serviceCatalog" element={<ServiceCatalog></ServiceCatalog>}></Route>
+        <Route path="/registerPersonalAccountHolder" element={<PersonalAccountHolderRegister></PersonalAccountHolderRegister>}></Route>
+        <Route path="/registerCorporateAccountHolder" element={<CorporateAccountHolderRegister></CorporateAccountHolderRegister>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

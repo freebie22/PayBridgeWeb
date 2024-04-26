@@ -1,10 +1,11 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useRegisterUserMutation } from "../APIs/userAPI";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import inputHelper from "../Helper/inputHelper";
 import { apiResponse } from "../Interfaces";
 import toastNotify from "../Helper/toastNotify";
-import { MainLoader } from "../Components/Common";
+import { MainLoader, MiniLoader } from "../Components/Common";
+import payBridgeSm from "../assets/images/paybridge-sm.png";
 
 function Register() {
   const [registerUser] = useRegisterUserMutation();
@@ -15,7 +16,7 @@ function Register() {
     password: "",
     email: "",
     phoneNumber: "",
-    role: "Client",
+    role: "",
   });
 
   const [imageToStore, setImageToStore] = useState<any>();
@@ -63,15 +64,6 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
-    // const response: apiResponse = await registerUser({
-    //   username: userInput.username,
-    //   password: userInput.password,
-    //   email: userInput.email,
-    //   phoneNumber: userInput.phoneNumber,
-    //   role: userInput.role,
-    // });
-
     const formData = new FormData();
 
     formData.append("username", userInput.username);
@@ -84,21 +76,47 @@ function Register() {
     let response: apiResponse = await registerUser(formData);
 
     if (response.data && response.data.isSuccess) {
-      toastNotify(
-        "Реєстрація успішна! Будь-ласка, увійдіть в обліковий запис."
-      );
-      navigate("/");
+      if (userInput.role === "Client") {
+        toastNotify(
+          "Реєстрація успішна! Будь-ласка, авторизуйтесь та створіть обліковий запис фізичної особи, щоб продовжити роботу в нашому сервісі."
+        );
+        navigate("/");
+      }
+      if (userInput.role === "Responsible_Person") {
+        toastNotify(
+          "Реєстрація успішна! Будь-ласка, авторизуйтесь та створіть обліковий запис відповідальної особи компанії, щоб продовжити роботу в нашому сервісі."
+        );
+        navigate("/");
+      }
+      setUserInput({
+        username: "",
+        password: "",
+        email: "",
+        phoneNumber: "",
+        role: "",
+      });
     } else if (response.error) {
       console.log(response.error.data.errorMessages);
     }
     setLoading(false);
   };
 
+  const handleRolePick = (role: string) => {
+    setUserInput((previousState) => ({
+      ...previousState,
+      role: role,
+    }));
+  };
+
   return (
-    <div className="container text-center">
+    <div
+      className="container rounded text-center mt-5 py-3"
+      style={{ backgroundColor: "#212529" }}
+    >
       <form onSubmit={handleSubmit} encType="multipart/form-data" method="post">
-        <h1 className="mt-5">Реєстрація</h1>
-        <div className="mt-5">
+        <div>
+          <img src={payBridgeSm} alt="" style={{ height: "70px" }}></img>
+          <h1 className="mt-2 text-white">Реєстрація</h1>
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
             <input
               type="text"
@@ -144,17 +162,38 @@ function Register() {
             />
           </div>
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
+            <select
+              className="form-select"
+              name="role"
+              required
+              onChange={(e) => handleRolePick(e.target.value)}
+            >
+              <option selected disabled>
+                Оберіть тип облікового запису
+              </option>
+              <option value={"Client"}>Фізична особа</option>
+              <option value={"Responsible_Person"}>
+                Відповідальна особа за фін.операції на підприємстві
+              </option>
+            </select>
+          </div>
+          <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
             <input
               type="file"
               className="form-control"
               onChange={handleFileChange}
             />
           </div>
-        </div>
-        <div className="mt-5">
-          <button type="submit" className="btn btn-success">
-            {isLoading ? <MainLoader></MainLoader> : "Зареєструватись"}
-          </button>
+          <div className="text-center pt-3">
+            <NavLink className="text-white" to="/login">
+              Вже маєте обліковий запис? Авторизуйтесь!
+            </NavLink>
+          </div>
+          <div className="mt-4 pb-5">
+            <button type="submit" className="btn btn-success">
+              {isLoading ? <MiniLoader></MiniLoader> : "Зареєструватись"}
+            </button>
+          </div>
         </div>
       </form>
     </div>
