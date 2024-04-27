@@ -13,6 +13,9 @@ import {
   emptyProflieState,
   setProfileState,
 } from "../Storage/Redux/personalAccountHolderSlice";
+import { emptyTransactionState, setUserToUserTransactions } from "../Storage/Redux/transactionSlice";
+import { emptyBankCard_AssetState, setBankCardsState } from "../Storage/Redux/bankCard_AssetSlice";
+import { emptyBankAccountState, setUserBankAccounts } from "../Storage/Redux/bankAccountSlice";
 
 function Header() {
   const userData: userModel = useSelector(
@@ -25,6 +28,9 @@ function Header() {
     localStorage.removeItem("token");
     dispatch(setLoggedInUser({ ...emptyUserState }));
     dispatch(setProfileState({ ...emptyProflieState }));
+    dispatch(setBankCardsState({...emptyBankCard_AssetState.bankCards}));
+    dispatch(setUserToUserTransactions({...emptyTransactionState.userToUserTransactions}));
+    dispatch(setUserBankAccounts({...emptyBankAccountState.userBankAccounts}));
     navigate("/");
   };
 
@@ -37,6 +43,9 @@ function Header() {
         break;
       case "Admin":
         setProfileLink("/adminProfile");
+        break;
+      case "Responsible_Person":
+        setProfileLink("/responsiblePersonProfile");
         break;
       default:
         setProfileLink("/myProfile");

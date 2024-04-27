@@ -34,7 +34,6 @@ function Login() {
   const handleUserLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
-    console.log(userInput);
   };
 
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ const accountHolderApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://localhost:7112/api/"
     }),
-    tagTypes: ["PersonalAccountHolders"],
+    tagTypes: ["PersonalAccountHolders", "CorporateAccountHolders"],
     endpoints: (builder) => ({
         getPersonalAccountHolders : builder.query({
             query : () => ({
@@ -33,9 +33,34 @@ const accountHolderApi = createApi({
                 body : holderBody
             }),
             invalidatesTags : ["PersonalAccountHolders"]
-        })
+        }),
+        getCorporateAccountHolders : builder.query({
+            query : () => ({
+                url: "accountHolder/GetCorporateAccountHolders",
+                method: "GET"
+            }),
+            providesTags : ["CorporateAccountHolders"]
+        }),
+        getCorporateAccountHolderByUserId : builder.query({
+            query : (responsiblePersonId : number) => ({
+                url: "accountHolder/GetCorporateAccountHolder",
+                method: "GET",
+                params : {
+                    responsiblePersonId : responsiblePersonId
+                }
+            }),
+            providesTags : ["CorporateAccountHolders"]
+        }),
+        createCorporateAccountHolder : builder.mutation({
+            query: (holderBody) => ({
+                url: "accountHolder/CreateCorporateAccountHolder",
+                method: "POST",
+                body : holderBody
+            }),
+            invalidatesTags : ["CorporateAccountHolders"]
+        }),
     })
 })
 
-export const {useGetPersonalAccountHoldersQuery, useGetPersonalAccountHolderByUserIdQuery, useCreatePersonalAccountHolderMutation} = accountHolderApi;
+export const {useGetPersonalAccountHoldersQuery, useGetPersonalAccountHolderByUserIdQuery, useCreatePersonalAccountHolderMutation, useGetCorporateAccountHoldersQuery, useGetCorporateAccountHolderByUserIdQuery, useCreateCorporateAccountHolderMutation} = accountHolderApi;
 export default accountHolderApi;

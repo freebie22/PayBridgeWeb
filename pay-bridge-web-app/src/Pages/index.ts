@@ -16,5 +16,25 @@ import TransactionCard from "./Transactions/TransactionCard";
 import ServiceCatalog from "./ServiceCatalog";
 import CorporateAccountHolderRegister from "./AccountHolder/CorporateAccountHolderRegister";
 import PersonalAccountHolderRegister from "./AccountHolder/PersonalAccountHolderRegister";
+import ResponsiblePersonProfile from "./Profiles/ResponsiblePersonProfile";
+import CompanyBankAssets from "./BankCards_Assets/CompanyBankAssets";
 
-export {Login, Register, PersonalAccountHolderProfile, Home, ForgotPassword, ChangePassword, InfoPage, MyBankAccounts, BankAccountCard, BankCards, MyBankCards, BankCardCard, ServiceCatalog, PersonalAccountHolderRegister, CorporateAccountHolderRegister}
+export {
+  Login,
+  Register,
+  PersonalAccountHolderProfile,
+  Home,
+  ForgotPassword,
+  ChangePassword,
+  InfoPage,
+  MyBankAccounts,
+  BankAccountCard,
+  BankCards,
+  MyBankCards,
+  BankCardCard,
+  ServiceCatalog,
+  PersonalAccountHolderRegister,
+  CorporateAccountHolderRegister,
+  ResponsiblePersonProfile,
+  CompanyBankAssets
+};

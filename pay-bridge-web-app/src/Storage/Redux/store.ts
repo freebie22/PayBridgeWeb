@@ -15,6 +15,9 @@ import { bankCard_AssetReducer } from "./bankCard_AssetSlice";
 import transactionAPI from "../../APIs/transactionAPI";
 import { transactionReducer } from "./transactionSlice";
 import { citiesAndVillagesReducer } from "./cititesAndVillagesSlice";
+import { corporateAccountHolderReducer } from "./corporateAccountHolderSlice";
+import { responsiblePersonReducer } from "./responsiblePersonSlice";
+import responsiblePersonApi from "../../APIs/responsiblePersonAPI";
 
 const store = configureStore({
   reducer: {
@@ -27,13 +30,16 @@ const store = configureStore({
     bankCard_AssetStore: bankCard_AssetReducer,
     transactionStore: transactionReducer,
     citiesAndVillagesStore: citiesAndVillagesReducer,
+    corporateAccountHolderStore: corporateAccountHolderReducer,
+    responsiblePersonStore: responsiblePersonReducer,
     [authApi.reducerPath]: authApi.reducer,
     [accountHolderApi.reducerPath]: accountHolderApi.reducer,
     [managerApi.reducerPath]: managerApi.reducer,
     [bankAccountApi.reducerPath]: bankAccountApi.reducer,
     [bankApi.reducerPath]: bankApi.reducer,
     [bankCard_AssetAPI.reducerPath]: bankCard_AssetAPI.reducer,
-    [transactionAPI.reducerPath] : transactionAPI.reducer
+    [transactionAPI.reducerPath] : transactionAPI.reducer,
+    [responsiblePersonApi.reducerPath] : responsiblePersonApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -43,7 +49,8 @@ const store = configureStore({
       .concat(bankAccountApi.middleware)
       .concat(bankApi.middleware)
       .concat(bankCard_AssetAPI.middleware)
-      .concat(transactionAPI.middleware),
+      .concat(transactionAPI.middleware)
+      .concat(responsiblePersonApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

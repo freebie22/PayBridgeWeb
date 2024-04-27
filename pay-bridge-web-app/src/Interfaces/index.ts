@@ -8,5 +8,7 @@ import bankAccountModel from "./bankAccountModel";
 import bankModel from "./bankModel";
 import userToUserTransactionModel from "./userToUserTransactionModel";
 import citiesAndVillages from "./citiesAndVillages";
+import corporateAccountHolder from "./corporateAccountHolderModel";
+import responsiblePerson from "./responsiblePerson";
 
-export type {userModel, apiResponse, personalAccountHolderProfileModel, changePasswordModel, ManagerModel, bankCardModel, bankAccountModel, bankModel, userToUserTransactionModel, citiesAndVillages};
+export type {userModel, apiResponse, personalAccountHolderProfileModel, changePasswordModel, ManagerModel, bankCardModel, bankAccountModel, bankModel, userToUserTransactionModel, citiesAndVillages, corporateAccountHolder, responsiblePerson};

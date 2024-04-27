@@ -48,8 +48,8 @@ function MyTransactions() {
       <div className="d-flex justify-content-center align-items-center">
         <h3 className="text-white">Історія операцій</h3>
       </div>
-      {userToUserTransactionsStore &&
-        userToUserTransactionsStore.map(
+      {userToUserTransactionsStore && userToUserTransactionsStore.length > 0 ?
+        (userToUserTransactionsStore.map(
           (transaction: userToUserTransactionModel, index: number) => (
             <div
               key={index}
@@ -58,6 +58,10 @@ function MyTransactions() {
               <TransactionCard transaction={transaction}></TransactionCard>
             </div>
           )
+        )) : (
+          <div className="text-center">
+            <h5 className="text-white">За Вашим обліковим записом транзакцій не знайдено.</h5>
+          </div>
         )}
     </div>
   );

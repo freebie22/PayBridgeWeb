@@ -30,7 +30,7 @@ function MyBankCards() {
     cardNumber: "",
     expiryDate: "",
     cvc: 0,
-    currencyType: "",
+    currencyType: "UAH",
     balance: 0,
     isActive: true,
     bankAccountId: 0,
@@ -262,22 +262,6 @@ function MyBankCards() {
                     </div>
                   </div>
                 </div>
-                <div className="row justify-content-center">
-                  <div className="col-8">
-                    <div className="bank-card-name mt-2">
-                    <label htmlFor="currencyType">Тип валюти</label>
-                      <input
-                        type="text"
-                        placeholder="UAH, EUR, USD"
-                        required
-                        value={bankCardInput.currencyType}
-                        name="currencyType"
-                        onChange={handleBankCardInput}
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
               <div className="col text-center">
                 <button
@@ -310,15 +294,19 @@ function MyBankCards() {
           </div>
         )}
       </div>
-      {bankCardsStore.map((card: bankCardModel, index: number) => (
-        <div className="py-4" key={index}>
-          <div className="d-flex justify-content-center">
-            <div className="">
-              <BankCardCard bankCard={card}></BankCardCard>
+      {bankCardsStore && bankCardsStore.length > 0 ? (
+        bankCardsStore.map((card: bankCardModel, index: number) => (
+          <div className="py-4" key={index}>
+            <div className="d-flex justify-content-center">
+              <div className="">
+                <BankCardCard bankCard={card}></BankCardCard>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (<div className="text-center">
+        <h5 className="text-danger pb-4">За Вашим обліковим записом не знайдено банківських карток.</h5>
+      </div>)}
     </div>
   );
 }
