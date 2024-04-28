@@ -3,6 +3,7 @@ import { bankAccountModel } from "../../Interfaces";
 
 export const emptyBankAccountState = {
   userBankAccounts: [],
+  corporateBankAccounts: [],
   allBankAccounts: [],
 };
 
@@ -15,9 +16,12 @@ export const bankAccountSlice = createSlice({
     },
     setAllBankAccounts: (state, action) => {
       state.allBankAccounts = action.payload;
+    },
+    setCorporateBankAccounts: (state, action) => {
+      state.corporateBankAccounts = action.payload;
     }
   },
 });
 
-export const { setUserBankAccounts, setAllBankAccounts} = bankAccountSlice.actions;
+export const { setUserBankAccounts, setAllBankAccounts, setCorporateBankAccounts} = bankAccountSlice.actions;
 export const bankAccountReducer = bankAccountSlice.reducer;

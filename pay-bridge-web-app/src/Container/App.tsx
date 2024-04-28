@@ -6,6 +6,7 @@ import {
   ChangePassword,
   CompanyBankAssets,
   CorporateAccountHolderRegister,
+  CorporateBankAccountDetails,
   ForgotPassword,
   Home,
   InfoPage,
@@ -129,6 +130,7 @@ function App() {
         <Route path="/responsiblePersonProfile" element={<ResponsiblePersonProfile></ResponsiblePersonProfile>}></Route>
         <Route path="/responsiblePersonProfile/companyDetails" element={<CompanyDetails></CompanyDetails>}></Route>
         <Route path="/responsiblePersonProfile/companyBankAssets" element={<CompanyBankAssets></CompanyBankAssets>}></Route>
+        <Route path="/responsiblePersonProfile/corporateBankAccountDetails" element={<CorporateBankAccountDetails></CorporateBankAccountDetails>}></Route>
         <Route
           path="/managerProfile/bankCards"
           element={<BankCards></BankCards>}

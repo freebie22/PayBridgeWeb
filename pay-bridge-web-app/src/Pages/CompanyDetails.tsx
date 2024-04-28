@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { corporateAccountHolder, responsiblePerson, userModel } from '../Interfaces'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../Storage/Redux/store'
 import { useGetCorporateAccountHolderByUserIdQuery } from '../APIs/accountHolderAPI';
 import { useNavigate } from 'react-router-dom';
 import { MainLoader } from '../Components/Common';
+import { setCorporateAccountState } from '../Storage/Redux/corporateAccountHolderSlice';
 
 function CompanyDetails() {
 
     const responsiblePersonData : responsiblePerson = useSelector((state: RootState) => state.responsiblePersonStore);
     const userData: userModel = useSelector((state: RootState) => state.userAuthStore);
 
-    const [companyInfo, setCompanyInfo] = useState<corporateAccountHolder>();
+    const companyInfo : corporateAccountHolder = useSelector((state: RootState) => state.corporateAccountHolderStore);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {data: companyData, isLoading: companyLoading} = useGetCorporateAccountHolderByUserIdQuery(responsiblePersonData.responsiblePersonId, {skip: responsiblePersonData.responsiblePersonId === 0});
 
     useEffect(() => {
         if(companyData && !companyLoading)
             {
-                setCompanyInfo(companyData.result);
+                dispatch(setCorporateAccountState(companyData.result));
             }
     }, [companyData])
 
-    useEffect(() => {
-        if(companyInfo)
-            {
-                console.log(companyInfo);
-            }
-    }, [companyInfo]);
 
     if(companyLoading)
         {

@@ -92,14 +92,6 @@ function ResponsiblePersonProfile() {
     setPasswordInfo(tempData);
   }
 
-  useEffect(() => {
-    if (
-      responsiblePersonData &&
-      responsiblePersonData.responsiblePersonId === 0
-    ) {
-      navigate("/login");
-    }
-  }, [responsiblePersonData]);
   return (
     <div className="container py-5">
       <div
@@ -292,7 +284,21 @@ function ResponsiblePersonProfile() {
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0 text-center">Рахунки компанії</p>
+                  <p className="mb-0 text-center">Банківський рахунок компанії</p>
+                </div>
+                <div className="col-sm-9 text-center">
+                  <button
+                    onClick={() => navigate("/responsiblePersonProfile/corporateBankAccountDetails")}
+                    className="btn text-white btn-outline-success"
+                  >
+                    Детальніше про рахунок
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-sm-3">
+                  <p className="mb-0 text-center">Розрахункові рахунки</p>
                 </div>
                 <div className="col-sm-9 text-center">
                   <button

@@ -18,6 +18,8 @@ import CorporateAccountHolderRegister from "./AccountHolder/CorporateAccountHold
 import PersonalAccountHolderRegister from "./AccountHolder/PersonalAccountHolderRegister";
 import ResponsiblePersonProfile from "./Profiles/ResponsiblePersonProfile";
 import CompanyBankAssets from "./BankCards_Assets/CompanyBankAssets";
+import CorporateBankAccountDetails from "./CorporateBankAccountDetails";
+import BankAssetCard from "./BankCards_Assets/BankAssetCard";
 
 export {
   Login,
@@ -36,5 +38,7 @@ export {
   PersonalAccountHolderRegister,
   CorporateAccountHolderRegister,
   ResponsiblePersonProfile,
-  CompanyBankAssets
+  CompanyBankAssets,
+  CorporateBankAccountDetails,
+  BankAssetCard
 };

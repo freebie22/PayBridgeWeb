@@ -26,15 +26,37 @@ const bankCard_AssetAPI = createApi({
     }),
     addBankCard: builder.mutation({
       query: (cardBody) => ({
-        url: "/bankAccount/AddBankCard",
+        url: "bankAccount/AddBankCard",
         method: "POST",
         body: cardBody
       }),
       invalidatesTags: ["BankCards"]
+    }),
+    getBankAssets: builder.query({
+      query: (responsiblePersonId? : number) => ({
+        url: "bankAccount/GetBankAssets",
+        method: "GET",
+        params: {
+          responsiblePersonId : responsiblePersonId
+        }
+      })
+    }),
+    getBankAssetById: builder.query({
+      query: (id: number) => ({
+        url: `bankAccount/GetBankAsset/${id}`,
+        method: "GET"
+      })
+    }),
+    createBankAsset: builder.mutation({
+      query: (bankAssetBody) => ({
+        url: "bankAccount/CreateBankAsset",
+        method: "POST",
+        body: bankAssetBody
+      })
     })
   }),
 });
 
-export const { useGetBankCardsQuery, useGetBankCardByIdQuery, useAddBankCardMutation } =
+export const { useGetBankCardsQuery, useGetBankCardByIdQuery, useAddBankCardMutation, useGetBankAssetsQuery, useGetBankAssetByIdQuery, useCreateBankAssetMutation } =
   bankCard_AssetAPI;
 export default bankCard_AssetAPI;
