@@ -18,13 +18,24 @@ function Login() {
   });
 
   useEffect(() => {
+
+    let storedMessage = localStorage.getItem("storedMessage");
+    if(storedMessage)
+      {
+        const {message, type} = JSON.parse(storedMessage);
+        toastNotify(message, type);
+      }
+
     const foot = document.getElementById("footer");
     foot?.classList.add("fixed-bottom");
 
     return () => {
       foot?.classList.remove("fixed-bottom");
     };
+
+    
   }, []);
+
 
   const [error, setError] = useState(null);
 

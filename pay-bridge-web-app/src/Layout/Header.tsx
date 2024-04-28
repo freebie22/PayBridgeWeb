@@ -87,7 +87,7 @@ function Header() {
             </li>
             <li className="nav-item pt-1">
               <NavLink style={{ color: "white" }} className="nav-link" to="/serviceCatalog">
-                <h5 className="p-1 m-1">Каталог послуг</h5>
+                <h5 className="p-1 m-1">Послуги онлайн-переказів</h5>
               </NavLink>
             </li>
             <li className="nav-item  pt-1">

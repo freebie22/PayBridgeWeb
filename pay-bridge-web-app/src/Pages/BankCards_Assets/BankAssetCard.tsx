@@ -54,7 +54,7 @@ function BankAssetCard(props: BankAssetProps) {
       <div className="card-body" style={{color: "#0DA378"}}>
         <h5 className="card-title">IBAN-номер рахунку: <span className='text-white'>{props.bankAsset.ibaN_Number}</span></h5>
         <p className="card-text pt-2 h6">Баланс:  <span className='text-white'>{props.bankAsset.balance} {props.bankAsset.currencyType.toLocaleUpperCase()}</span> </p>
-        <p className="card-text h6">Банк-емітент рахунку:  <span className='text-white'>{props.bankAsset.bankName} <img src={setBankCardImage(props.bankAsset.bankName)} alt="" style={{maxHeight: "50px"}}></img></span></p>
+        <p className="card-text h6">Банк-емітент рахунку:  <span className='text-white'>{props.bankAsset.bankName} <img className='rounded' src={setBankCardImage(props.bankAsset.bankName)} alt="" style={{maxHeight: "50px", backgroundColor: "white"}}></img></span></p>
         <p className="card-text pb-3 h6">Рахунок активний:  {props.bankAsset.isActive ? (<span className='text-success'>Так - {props.bankAsset.status}</span>) : (<span className='text-danger'>Ні - {props.bankAsset.status}</span>)}</p>
         <p className="card-text h6">Дата реєстрації:  <span className='text-white'>{props.bankAsset.registrationDate}</span></p>
       </div>

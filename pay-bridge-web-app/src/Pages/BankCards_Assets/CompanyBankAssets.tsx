@@ -87,6 +87,7 @@ function CompanyBankAssets() {
     {
         toastNotify("Розрахунковий рахунок успішно створено!", "success");
         setCreatingNewBankAsset(false);
+        window.location.reload();
     }
 
     else if(response.error)
