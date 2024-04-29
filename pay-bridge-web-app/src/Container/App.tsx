@@ -5,6 +5,7 @@ import {
   BankCards,
   ChangePassword,
   CompanyBankAssets,
+  CompanyTransactions,
   CorporateAccountHolderRegister,
   CorporateBankAccountDetails,
   ForgotPassword,
@@ -131,6 +132,7 @@ function App() {
         <Route path="/responsiblePersonProfile/companyDetails" element={<CompanyDetails></CompanyDetails>}></Route>
         <Route path="/responsiblePersonProfile/companyBankAssets" element={<CompanyBankAssets></CompanyBankAssets>}></Route>
         <Route path="/responsiblePersonProfile/corporateBankAccountDetails" element={<CorporateBankAccountDetails></CorporateBankAccountDetails>}></Route>
+        <Route path="/responsiblePersonProfile/companyTransactions" element={<CompanyTransactions></CompanyTransactions>}></Route>
         <Route
           path="/managerProfile/bankCards"
           element={<BankCards></BankCards>}

@@ -10,7 +10,7 @@ interface TransactionProps
   transaction : userToUserTransactionModel 
 }
 
-function TransactionCard(props: TransactionProps) {
+function UserToUserTransactionCard(props: TransactionProps) {
 
   const navigate = useNavigate();
 
@@ -80,4 +80,4 @@ function TransactionCard(props: TransactionProps) {
   )
 }
 
-export default TransactionCard
+export default UserToUserTransactionCard

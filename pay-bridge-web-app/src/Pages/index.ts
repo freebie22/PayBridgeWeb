@@ -12,7 +12,7 @@ import MyBankCards from "./BankCards_Assets/MyBankCards";
 import BankCardCard from "./BankCards_Assets/BankCardCard";
 import AllTransactions from "./Transactions/AllTransactions";
 import MyTransactions from "./Transactions/MyTransactions";
-import TransactionCard from "./Transactions/TransactionCard";
+import UserToUserTransactionCard from "./Transactions/UserToUserTransactionCard";
 import ServiceCatalog from "./ServiceCatalog";
 import CorporateAccountHolderRegister from "./AccountHolder/CorporateAccountHolderRegister";
 import PersonalAccountHolderRegister from "./AccountHolder/PersonalAccountHolderRegister";
@@ -20,6 +20,9 @@ import ResponsiblePersonProfile from "./Profiles/ResponsiblePersonProfile";
 import CompanyBankAssets from "./BankCards_Assets/CompanyBankAssets";
 import CorporateBankAccountDetails from "./CorporateBankAccountDetails";
 import BankAssetCard from "./BankCards_Assets/BankAssetCard";
+import CompanyToUserTransactionCard from "./Transactions/CompanyToUserTransactionCard"
+import CompanyTransactions from "./Transactions/CompanyTransactions";
+import CompanyToCompanyTransactionCard from "./Transactions/CompanyToCompanyTransactionCard";
 
 export {
   Login,
@@ -40,5 +43,9 @@ export {
   ResponsiblePersonProfile,
   CompanyBankAssets,
   CorporateBankAccountDetails,
-  BankAssetCard
+  BankAssetCard,
+  UserToUserTransactionCard,
+  CompanyToUserTransactionCard,
+  CompanyTransactions,
+  CompanyToCompanyTransactionCard
 };

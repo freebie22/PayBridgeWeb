@@ -322,7 +322,7 @@ function ResponsiblePersonProfile() {
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0 text-center">Транзакції з рахунків компанії</p>
+                  <p className="mb-0 text-center">Транзакції по рахунках компанії</p>
                 </div>
                 <div className="col-sm-9 text-center">
                   <button className="btn text-white btn-outline-success" onClick={() => navigate("/responsiblePersonProfile/companyTransactions")}>

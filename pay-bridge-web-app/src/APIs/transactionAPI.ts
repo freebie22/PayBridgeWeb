@@ -41,11 +41,12 @@ const transactionAPI = createApi({
       invalidatesTags: ["UserToUserTransactions"],
     }),
     getCompanyToUserTransactions: builder.query({
-      query: (accountId?) => ({
+      query: ({senderAccountId, receiverAccountId}) => ({
         url: "transactions/GetAllCompanyToUserTransactions",
         method: "GET",
         params: {
-          accountId: accountId,
+          senderAccountId: senderAccountId,
+          receiverAccountId: receiverAccountId
         },
       }),
       providesTags: ["CompanyToUserTransactions"],
@@ -69,13 +70,17 @@ const transactionAPI = createApi({
       invalidatesTags: ["CompanyToUserTransactions"],
     }),
     getUserToCompanyTransactions: builder.query({
-      query: (accountId?) => ({
-        url: "transactions/GetAllUserToCompanyTransactions",
-        method: "GET",
-        params: {
-          accountId: accountId,
-        },
-      }),
+      query: (args) => {
+        const {senderAccountId, receiverAccountId} = args;
+        return {
+          url: "transactions/GetAllUserToCompanyTransactions",
+          method: "GET",
+          params: {
+            senderAccountId: senderAccountId,
+            receiverAccountId: receiverAccountId
+          },
+        }
+      },
       providesTags: ["UserToCompanyTransactions"],
     }),
     getUserToCompanyTransactionsById: builder.query({
