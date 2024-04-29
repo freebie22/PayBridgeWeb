@@ -3,6 +3,8 @@ import { withAuth } from "../HOC";
 import "..//Pages/BankCards_Assets/bankCardStyle.css";
 import {
   useMakeCompanyToCompanyTransactionsMutation,
+  useMakeCompanyToUserTransactionMutation,
+  useMakeUserToCompanyTransactionsMutation,
   useMakeUserToUserTransactionMutation,
 } from "../APIs/transactionAPI";
 import { useDispatch, useSelector } from "react-redux";
@@ -173,30 +175,6 @@ function ServiceCatalog() {
     const tempData = inputHelper(e, userToUserTransactionInput);
 
     if (
-      e.target.name === "senderBankCardNumber" &&
-      e.target.value.length > 0 &&
-      e.target.value.length % 5 === 0
-    ) {
-      const newValue =
-        e.target.value.substring(0, e.target.value.length - 1) +
-        " " +
-        e.target.value.substring(e.target.value.length - 1);
-      tempData[e.target.name] = newValue;
-    }
-
-    if (
-      e.target.name === "receiverBankCardNumber" &&
-      e.target.value.length > 0 &&
-      e.target.value.length % 5 === 0
-    ) {
-      const newValue =
-        e.target.value.substring(0, e.target.value.length - 1) +
-        " " +
-        e.target.value.substring(e.target.value.length - 1);
-      tempData[e.target.name] = newValue;
-    }
-
-    if (
       e.target.name === "senderExpiryDate" &&
       e.target.value.length > 0 &&
       e.target.value.length === 2
@@ -211,7 +189,7 @@ function ServiceCatalog() {
 
   //#endregion
 
-  //#region UserToCompanyTransactions(переказ зі своєї картки на рахунок компанії/ФОП)
+  //#region CompanyToCompanyTransactions(переказ з рахунку компанії/ФОП на рахунок компанії/ФОП)
 
   const bankAssetStore = useSelector(
     (state: RootState) => state.bankCard_AssetStore.bankAssets
@@ -259,12 +237,19 @@ function ServiceCatalog() {
         senderIBANNumber: "",
         receiverIBANNumber: "",
       });
+      localStorage.setItem(
+        "storedMessage",
+        JSON.stringify({
+          message: "Переказ на рахунок здійснено успішно!",
+          type: "success",
+        })
+      );
       setBankAssetsToRecieve(undefined);
       dispatch(setBankAssetsState({ ...emptyBankCard_AssetState }));
       setRechargingOwnAsset(false);
       setRechargingAsset(false);
-      navigate("/");
-      toastNotify("Переказ на рахунок здійснено успішно!");
+      navigate("/responsiblePersonProfile");
+      window.location.reload();
     } else if (response.error) {
       toastNotify(response.error.data.errorMessages[0], "error");
     }
@@ -327,6 +312,100 @@ function ServiceCatalog() {
   };
 
   //#endregion
+
+  //#region CompanyToUserTransactions(переказ з рахунку компанії/ФОП на картку користувача)
+
+  const [companyToUserTransactionInput, setCompanyToUserTransactionInput] =
+    useState({
+      amount: 0,
+      description: "",
+      senderIBANNumber: "",
+      receiverBankCardNumber: "",
+    });
+
+  const [isRechargingCardFromAsset, setRechargingCardFromAsset] = useState<boolean>(false);
+
+
+
+  const handleCompanyToUserInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const tempData = inputHelper(e, companyToUserTransactionInput);
+    setCompanyToUserTransactionInput(tempData);
+  }
+
+  const [makeCompanyToUserTransaction] = useMakeCompanyToUserTransactionMutation();
+
+  const handleCompanyToUserTransaction = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const response : apiResponse = await makeCompanyToUserTransaction({
+      amount: companyToUserTransactionInput.amount,
+      description: companyToUserTransactionInput.description,
+      senderIBANNumber: companyToUserTransactionInput.senderIBANNumber,
+      receiverBankCardNumber: companyToUserTransactionInput.receiverBankCardNumber,
+    })
+
+    if(response.data && response.data.isSuccess)
+    {
+        localStorage.setItem("storedMessage", JSON.stringify({message: "Транзакцію успішно виконано. Деталі Ви можете переглянути в особистому кабінеті", type: "success"}));
+        navigate("/responsiblePersonProfile");
+        window.location.reload();
+    }
+
+    else if(response.error)
+    {
+        toastNotify(response.error.data.errorMessages[0], "error");
+    }
+
+    setLoading(false);
+  }
+
+
+  //#endregion
+
+  const [isRechargingAssetFromCard, setRechargingAssetFromCard] = useState<boolean>(false);
+
+  const [userToCompanyTransactionInput, setUserToCompanyTransactionInput] = useState({
+    amount: 0,
+    description: "",
+    senderBankCardNumber: "",
+    receiverIBANNumber: ""
+  })
+
+  const handleUserToCompanyInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const tempData = inputHelper(e, userToCompanyTransactionInput);
+      setUserToCompanyTransactionInput(tempData);
+  }
+
+  const [makeUserToCompanyTransaction] = useMakeUserToCompanyTransactionsMutation();
+
+  const handleUserToCompanyTransaction = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const response: apiResponse = await makeUserToCompanyTransaction({
+      amount: userToCompanyTransactionInput.amount,
+      description: userToCompanyTransactionInput.description,
+      senderBankCardNumber: userToCompanyTransactionInput.senderBankCardNumber,
+      receiverIBANNumber: userToCompanyTransactionInput.receiverIBANNumber
+    })
+
+    if(response.data && response.data.isSuccess)
+    {
+        localStorage.setItem("storedMessage", JSON.stringify({message: "Транзакцію успішно виконано. Деталі Ви можете переглянути в особистому кабінеті"}));
+        navigate("/myProfile");
+        window.location.reload();
+    }
+
+    else if(response.error)
+    {
+        toastNotify(response.error.data.errorMessages[0], "error");
+    }
+
+    setLoading(false);
+
+  }
+
 
   return (
     <div
@@ -468,8 +547,8 @@ function ServiceCatalog() {
                           </label>
                           <input
                             type="text"
-                            placeholder="4111 1111 1111 1111"
-                            maxLength={19}
+                            placeholder="4111111111111111"
+                            maxLength={16}
                             required
                             value={
                               userToUserTransactionInput.senderBankCardNumber
@@ -582,8 +661,8 @@ function ServiceCatalog() {
                               <label htmlFor="cardNumber">Номер картки</label>
                               <input
                                 type="text"
-                                placeholder="4111 1111 1111 1111"
-                                maxLength={19}
+                                placeholder="4111111111111111"
+                                maxLength={16}
                                 required
                                 value={
                                   userToUserTransactionInput.receiverBankCardNumber
@@ -649,7 +728,30 @@ function ServiceCatalog() {
             </div>
             <div className="text-center">
               <h3 className="text-white">Переказ за реквізитами</h3>
-              <button className="btn btn-primary mb-2">Детальніше</button>
+              {isRechargingAssetFromCard ? (<div>
+                <form method="POST" onSubmit={handleUserToCompanyTransaction}>
+                <div className="row justify-content-center">
+                  <label className="h5 text-white" htmlFor="senderBankCardNumber">Введіть номер Вашої картки</label>
+                  <input style={{width: "50%"}} className="form-control" required name="senderBankCardNumber" placeholder="4111111111111111" maxLength={16} onChange={handleUserToCompanyInput}></input>
+                  <label className="h5 text-white" htmlFor="description">Призначення переказу</label>
+                  <textarea style={{width: "60%"}} className="form-control" required name="description" placeholder="На дрони для ЗСУ..." onChange={handleUserToCompanyInput}></textarea>
+                  <label className="h5 text-white" htmlFor="amount">Сума переказу</label>
+                  <input style={{width: "50%"}} value={userToCompanyTransactionInput.amount} className="form-control" required name="amount" type="number" onChange={handleUserToCompanyInput}></input>
+                  <label className="h5 text-white" htmlFor="receiverIBANNumber">Введіть номер IBAN-номер отримувача</label>
+                  <input style={{width: "50%"}} className="form-control" required name="receiverIBANNumber" placeholder="UA..." maxLength={29} onChange={handleUserToCompanyInput}></input>
+                  <div className="col-8">
+                  <button className="btn btn-success mt-3" type="submit" disabled={isLoading}>
+                    {isLoading ? (<MiniLoader></MiniLoader>) : "Підтвердити переказ"}
+                  </button>
+                  </div>
+                </div>
+                </form>
+                <button onClick={() => setRechargingAssetFromCard((previousState) => !previousState)} className="btn btn-danger my-2">Відмінити</button>
+              </div>) : (
+                <div>
+                     <button onClick={() => setRechargingAssetFromCard((previousState) => !previousState)} className="btn btn-primary mb-2">Детальніше</button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -660,7 +762,9 @@ function ServiceCatalog() {
           <div className="row">
             <div className="d-flex justify-content-center align-items-center">
               <img src={payBridgeSm} alt="" style={{ maxHeight: "40px" }}></img>
-              <h1 className="text-white mx-2">Каталог послуг для компанії/ФОП</h1>
+              <h1 className="text-white mx-2">
+                Каталог послуг для компанії/ФОП
+              </h1>
               <img src={payBridgeSm} alt="" style={{ maxHeight: "40px" }}></img>
             </div>
             <div className="text-center rounded">
@@ -797,11 +901,11 @@ function ServiceCatalog() {
             <div className="text-center">
               <h3 className="text-white">Переказ з рахунку на рахунок</h3>
               {isRechargingAsset ? (
-                <form method="POST" onSubmit={handleMakeCompanyToCompanyTransaction}>
-                  <div
-                    className="mb-3 mx-auto"
-                    style={{color: "white" }}
-                  >
+                <form
+                  method="POST"
+                  onSubmit={handleMakeCompanyToCompanyTransaction}
+                >
+                  <div className="mb-3 mx-auto" style={{ color: "white" }}>
                     <div className="row justify-content-center">
                       <div className="col-8">
                         <div className="">
@@ -864,14 +968,14 @@ function ServiceCatalog() {
                   </div>
                   <div>
                     <div>
-                      <div
-                        className="mb-3 mx-auto"
-                        style={{color: "white" }}
-                      >
+                      <div className="mb-3 mx-auto" style={{ color: "white" }}>
                         <div className="row justify-content-center">
                           <div className="col-8">
                             <div className="">
-                              <label className="h5" htmlFor="receiverIBANNumber">
+                              <label
+                                className="h5"
+                                htmlFor="receiverIBANNumber"
+                              >
                                 IBAN-номер рахунку отримувача
                               </label>
                               <input
@@ -892,10 +996,7 @@ function ServiceCatalog() {
                       </div>
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="btn btn-success mb-2"
-                  >
+                  <button type="submit" className="btn btn-success mb-2">
                     Підтвердити
                   </button>
                   <button
@@ -920,7 +1021,31 @@ function ServiceCatalog() {
             </div>
             <div className="text-center">
               <h3 className="text-white">Переказ за номером картки</h3>
-              <button className="btn btn-primary mb-2">Детальніше</button>
+            {isRechargingCardFromAsset ? (
+             <div>
+              <form method="POST" onSubmit={handleCompanyToUserTransaction}>
+                <div className="row justify-content-center">
+                  <label className="h5 text-white" htmlFor="senderIBANNumber">Введіть IBAN номер рахунку</label>
+                  <input style={{width: "50%"}} className="form-control" required name="senderIBANNumber" placeholder="UA..." maxLength={29} onChange={handleCompanyToUserInput}></input>
+                  <label className="h5 text-white" htmlFor="description">Призначення переказу</label>
+                  <textarea style={{width: "60%"}} className="form-control" required name="description" placeholder="На дрони для ЗСУ..." onChange={handleCompanyToUserInput}></textarea>
+                  <label className="h5 text-white" htmlFor="amount">Сума переказу</label>
+                  <input style={{width: "50%"}} className="form-control" required name="amount" type="number" onChange={handleCompanyToUserInput}></input>
+                  <label className="h5 text-white" htmlFor="receiverBankCardNumber">Введіть номер картки отримувача</label>
+                  <input style={{width: "50%"}} className="form-control" required name="receiverBankCardNumber" placeholder="4111 1111 1111 1111" maxLength={19} onChange={handleCompanyToUserInput}></input>
+                  <div className="col-8">
+                  <button className="btn btn-success mt-3" type="submit" disabled={isLoading}>
+                    {isLoading ? (<MiniLoader></MiniLoader>) : "Підтвердити переказ"}
+                  </button>
+                  </div>
+                </div>
+              </form>
+               <button onClick={() => setRechargingCardFromAsset((previousState) => !previousState)} className="btn btn-danger my-3">Відмінити</button>
+             </div> 
+             
+            ) : (
+              <button onClick={() => setRechargingCardFromAsset((previousState) => !previousState)}  className="btn btn-primary mb-2">Детальніше</button>
+            )}
             </div>
           </div>
         </div>

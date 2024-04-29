@@ -54,6 +54,17 @@ function PersonalAccountHolderProfile() {
     };
   }, []);
 
+
+  window.onload = () => {
+    let storedMessage = localStorage.getItem("storedMessage");
+    if(storedMessage)
+      {
+        let {message, type} = JSON.parse(storedMessage);
+        toastNotify(message, type);
+        localStorage.removeItem("storedMessage");
+      }
+  }
+
   const [makeEmailConfirmationRequest] = useConfirmEmailRequestMutation();
 
   const handleEmailConfirmationRequest = async (

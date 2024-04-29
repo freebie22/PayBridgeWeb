@@ -92,6 +92,16 @@ function ResponsiblePersonProfile() {
     setPasswordInfo(tempData);
   }
 
+  window.onload = () => {
+    let storedMessage = localStorage.getItem("storedMessage");
+    if(storedMessage)
+    {
+        let {message, type} = JSON.parse(storedMessage);
+        toastNotify(message, type);
+        localStorage.removeItem("storedMessage");
+    }
+  }
+
   return (
     <div className="container py-5">
       <div

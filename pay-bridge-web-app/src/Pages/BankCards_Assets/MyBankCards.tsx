@@ -54,16 +54,7 @@ function MyBankCards() {
     }
   );
 
-  useEffect(() => {
-    const foot = document.getElementById("footer");
 
-    foot?.classList.remove("fixed-bottom");
-
-    return() => {
-      foot?.classList.add("fixed-bottom");
-    }
-
-  }, [])
 
 
   const { data: bankAccounts, isLoading: bankAccountsLoading } =
@@ -86,6 +77,18 @@ function MyBankCards() {
       dispatch(setBankCardsState(bankCards.result));
     }
   }, [bankCards]);
+
+  useEffect(() => {
+    if(bankCardsStore && bankCardsStore.length < 4) {
+      const foot = document.getElementById("footer");
+
+      foot?.classList.remove("fixed-bottom");
+  
+      return() => {
+        foot?.classList.add("fixed-bottom");
+      }
+    }
+  }, [])
 
   const [addBankCard] = useAddBankCardMutation();
 
