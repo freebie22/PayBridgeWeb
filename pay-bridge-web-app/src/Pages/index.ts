@@ -23,6 +23,7 @@ import BankAssetCard from "./BankCards_Assets/BankAssetCard";
 import CompanyToUserTransactionCard from "./Transactions/CompanyToUserTransactionCard"
 import CompanyTransactions from "./Transactions/CompanyTransactions";
 import CompanyToCompanyTransactionCard from "./Transactions/CompanyToCompanyTransactionCard";
+import ResponsiblePersonRegister from "./ResponsiblePersonRegister";
 
 export {
   Login,
@@ -47,5 +48,6 @@ export {
   UserToUserTransactionCard,
   CompanyToUserTransactionCard,
   CompanyTransactions,
-  CompanyToCompanyTransactionCard
+  CompanyToCompanyTransactionCard,
+  ResponsiblePersonRegister
 };

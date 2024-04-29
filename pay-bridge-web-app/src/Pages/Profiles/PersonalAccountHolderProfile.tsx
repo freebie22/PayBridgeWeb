@@ -324,7 +324,7 @@ function PersonalAccountHolderProfile() {
                 </div>
                 <div className="col-sm-9">
                   <p className="text-white text-center mb-0">
-                    {profileData.state}, м. {profileData.city},{" "}
+                    {profileData.state}, {profileData.city},{" "}
                     {profileData.streetAddress}
                   </p>
                 </div>

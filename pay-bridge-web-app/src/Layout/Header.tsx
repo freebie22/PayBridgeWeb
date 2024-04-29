@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/images/paybridge-sm.png";
 import sign from "../assets/images/paybridgeSign.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import { userModel } from "../Interfaces";
+import {
+  personalAccountHolderProfileModel,
+  responsiblePerson,
+  userModel,
+} from "../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Storage/Redux/store";
 import {
@@ -13,14 +17,31 @@ import {
   emptyProflieState,
   setProfileState,
 } from "../Storage/Redux/personalAccountHolderSlice";
-import { emptyTransactionState, setUserToUserTransactions } from "../Storage/Redux/transactionSlice";
-import { emptyBankCard_AssetState, setBankCardsState } from "../Storage/Redux/bankCard_AssetSlice";
-import { emptyBankAccountState, setUserBankAccounts } from "../Storage/Redux/bankAccountSlice";
+import {
+  emptyTransactionState,
+  setUserToUserTransactions,
+} from "../Storage/Redux/transactionSlice";
+import {
+  emptyBankCard_AssetState,
+  setBankCardsState,
+} from "../Storage/Redux/bankCard_AssetSlice";
+import {
+  emptyBankAccountState,
+  setUserBankAccounts,
+} from "../Storage/Redux/bankAccountSlice";
 
 function Header() {
   const userData: userModel = useSelector(
     (state: RootState) => state.userAuthStore
   );
+
+  const personalAccountHolderData: personalAccountHolderProfileModel =
+    useSelector((state: RootState) => state.personalAccountHolderStore);
+
+  const responsiblePersonData: responsiblePerson = useSelector(
+    (state: RootState) => state.responsiblePersonStore
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,16 +49,22 @@ function Header() {
     localStorage.removeItem("token");
     dispatch(setLoggedInUser({ ...emptyUserState }));
     dispatch(setProfileState({ ...emptyProflieState }));
-    dispatch(setBankCardsState({...emptyBankCard_AssetState.bankCards}));
-    dispatch(setUserToUserTransactions({...emptyTransactionState.userToUserTransactions}));
-    dispatch(setUserBankAccounts({...emptyBankAccountState.userBankAccounts}));
+    dispatch(setBankCardsState({ ...emptyBankCard_AssetState.bankCards }));
+    dispatch(
+      setUserToUserTransactions({
+        ...emptyTransactionState.userToUserTransactions,
+      })
+    );
+    dispatch(
+      setUserBankAccounts({ ...emptyBankAccountState.userBankAccounts })
+    );
     navigate("/");
   };
 
   const [profileLink, setProfileLink] = useState<string>("");
 
   useEffect(() => {
-            switch (userData.role) {
+    switch (userData.role) {
       case "Manager":
         setProfileLink("/managerProfile");
         break;
@@ -86,12 +113,20 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item pt-1">
-              <NavLink style={{ color: "white" }} className="nav-link" to="/serviceCatalog">
+              <NavLink
+                style={{ color: "white" }}
+                className="nav-link"
+                to="/serviceCatalog"
+              >
                 <h5 className="p-1 m-1">Послуги онлайн-переказів</h5>
               </NavLink>
             </li>
             <li className="nav-item  pt-1">
-              <NavLink style={{ color: "white" }} className="nav-link" to="/infoPage">
+              <NavLink
+                style={{ color: "white" }}
+                className="nav-link"
+                to="/infoPage"
+              >
                 <h5 className="p-1 m-1">Про нас</h5>
               </NavLink>
             </li>
@@ -236,17 +271,58 @@ function Header() {
                         data-bs-dismiss="modal"
                         className="btn-group-vertical col-12 p-3"
                       >
-                        <NavLink
-                          style={{
-                            backgroundColor: "#0DA378",
-                            color: "white",
-                            border: "none",
-                          }}
-                          className="btn mb-2"
-                          to={profileLink}
-                        >
-                          Особистий кабінет
-                        </NavLink>
+                        {userData && userData.id !== "" && (
+                          <div>
+                            {(personalAccountHolderData.accountId === 0 &&
+                            responsiblePersonData.responsiblePersonId === 0) ? (
+                              <div>
+                                {userData.role === "Client" && (
+                                  <div className="d-flex justify-content-center">
+                                    <NavLink
+                                  style={{
+                                    backgroundColor: "#0DA378",
+                                    color: "white",
+                                    border: "none",
+                                  }}
+                                  className="btn mb-2"
+                                  to="/registerPersonalAccountHolder"
+                                >
+                                  Зареєструвати обліковий запис сервісу
+                                </NavLink>
+                                  </div>
+                                )}
+                                {userData.role === "Responsible_Person" && (
+                                  <div className="d-flex justify-content-center">
+                                    <NavLink
+                                  style={{
+                                    backgroundColor: "#0DA378",
+                                    color: "white",
+                                    border: "none",
+                                  }}
+                                  className="btn mb-2"
+                                  to="/registerResponsiblePerson"
+                                >
+                                  Зареєструвати обліковий запис відповідальної особи
+                                </NavLink>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="d-flex justify-content-center">
+                                <NavLink
+                                  style={{
+                                    color: "white",
+                                    border: "none",
+                                  }}
+                                  className="btn btn-success mx-auto mb-2"
+                                  to={profileLink}
+                                >
+                                  Особистий кабінет
+                                </NavLink>
+                              </div>
+                            )}
+                          </div>
+                        )}
                         <button
                           style={{ color: "white" }}
                           className="btn btn-danger mb-2"

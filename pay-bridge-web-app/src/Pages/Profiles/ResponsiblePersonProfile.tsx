@@ -36,6 +36,15 @@ function ResponsiblePersonProfile() {
     oldPassword: ""
   })
 
+  const [isResponsiblePersonAttachedToCompany, setResponsiblePersonAttachedToCompany] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(responsiblePersonData && responsiblePersonData.companyFullName !== "Відповідальна особа не прив'язана до компанії")
+      {
+          setResponsiblePersonAttachedToCompany(true);
+      }
+  }, [responsiblePersonData])
+
   const userData : userModel = useSelector((state: RootState) => state.userAuthStore); 
 
   const [changePassword] = useChangePasswordMutation();
@@ -148,7 +157,7 @@ function ResponsiblePersonProfile() {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="btn btn-success"
+                      className="btn btn-success mt-3 mx-3"
                     >
                       {isLoading ? (
                         <MiniLoader></MiniLoader>
@@ -283,15 +292,26 @@ function ResponsiblePersonProfile() {
                   <p className="my-0 text-center">Компанія у Вашій відповідальності</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button
+                  {isResponsiblePersonAttachedToCompany ? (<div>
+                    <button
                     onClick={() => navigate("/responsiblePersonProfile/companyDetails")}
                     className="btn text-white btn-outline-success"
                   >
                     {responsiblePersonData.companyFullName}
                   </button>
+                  </div>) : (<div>
+                    <button
+                    onClick={() => navigate("/responsiblePersonProfile/registerCorporateAccountHolder")}
+                    className="btn text-white btn-outline-success"
+                  >
+                    Додати компанію до відповідальної особи
+                  </button>
+                  </div>)}
+                  
                 </div>
               </div>
-              <hr />
+              {isResponsiblePersonAttachedToCompany && (<div>
+                <hr />
               <div className="row">
                 <div className="col-sm-3">
                   <p className="mb-0 text-center">Банківський рахунок компанії</p>
@@ -330,6 +350,7 @@ function ResponsiblePersonProfile() {
                   </button>
                 </div>
               </div>
+              </div>)}
             </div>
           </div>
         </div>

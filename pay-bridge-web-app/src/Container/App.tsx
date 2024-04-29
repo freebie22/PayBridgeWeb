@@ -18,6 +18,7 @@ import {
   PersonalAccountHolderRegister,
   Register,
   ResponsiblePersonProfile,
+  ResponsiblePersonRegister,
   ServiceCatalog,
 } from "../Pages";
 import { jwtDecode } from "jwt-decode";
@@ -128,11 +129,13 @@ function App() {
           path="/myProfile/myBankCards"
           element={<MyBankCards></MyBankCards>}
         ></Route>
+        <Route path="/registerResponsiblePerson" element={<ResponsiblePersonRegister></ResponsiblePersonRegister>}></Route>
         <Route path="/responsiblePersonProfile" element={<ResponsiblePersonProfile></ResponsiblePersonProfile>}></Route>
         <Route path="/responsiblePersonProfile/companyDetails" element={<CompanyDetails></CompanyDetails>}></Route>
         <Route path="/responsiblePersonProfile/companyBankAssets" element={<CompanyBankAssets></CompanyBankAssets>}></Route>
         <Route path="/responsiblePersonProfile/corporateBankAccountDetails" element={<CorporateBankAccountDetails></CorporateBankAccountDetails>}></Route>
         <Route path="/responsiblePersonProfile/companyTransactions" element={<CompanyTransactions></CompanyTransactions>}></Route>
+        <Route path="/responsiblePersonProfile/registerCorporateAccountHolder" element={<CorporateAccountHolderRegister></CorporateAccountHolderRegister>}></Route>
         <Route
           path="/managerProfile/bankCards"
           element={<BankCards></BankCards>}
