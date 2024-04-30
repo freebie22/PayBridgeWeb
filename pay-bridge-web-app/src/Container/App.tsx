@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Footer, Header } from "../Layout";
 import { Route, Routes } from "react-router-dom";
 import {
+  AllTransactions,
   BankCards,
   ChangePassword,
   CompanyBankAssets,
@@ -125,6 +126,7 @@ function App() {
           path="/managerProfile/bankAccounts"
           element={<BankAccounts></BankAccounts>}
         ></Route>
+        <Route path="/managerProfile/allTransactions" element={<AllTransactions></AllTransactions>}></Route>
         <Route
           path="/myProfile/myBankCards"
           element={<MyBankCards></MyBankCards>}
@@ -145,7 +147,7 @@ function App() {
           element={<MyTransactions></MyTransactions>}
         ></Route>
         <Route
-          path="/myProfile/transactionDetails/:transactionUniqueNumber?"
+          path="/myProfile/transactionDetails/:transactionUniqueNumber?/:transactionType?"
           element={<TransactionDetails></TransactionDetails>}
         ></Route>
         <Route

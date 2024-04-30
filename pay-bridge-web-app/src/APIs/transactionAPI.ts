@@ -41,14 +41,16 @@ const transactionAPI = createApi({
       invalidatesTags: ["UserToUserTransactions"],
     }),
     getCompanyToUserTransactions: builder.query({
-      query: ({senderAccountId, receiverAccountId}) => ({
-        url: "transactions/GetAllCompanyToUserTransactions",
+      query: (args) => {
+        const {senderAccountId, receiverAccountId} = args;
+        return {url: "transactions/GetAllCompanyToUserTransactions",
         method: "GET",
         params: {
           senderAccountId: senderAccountId,
           receiverAccountId: receiverAccountId
         },
-      }),
+      }
+      },
       providesTags: ["CompanyToUserTransactions"],
     }),
     getCompanyToUserTransactionById: builder.query({
@@ -83,9 +85,9 @@ const transactionAPI = createApi({
       },
       providesTags: ["UserToCompanyTransactions"],
     }),
-    getUserToCompanyTransactionsById: builder.query({
+    getUserToCompanyTransactionById: builder.query({
       query: (transactionNumber) => ({
-        url: `transactions/GetUserToCompanyTransactions`,
+        url: `transactions/GetUserToCompanyTransaction`,
         method: "GET",
         params: {
           transactionNumber: transactionNumber,
@@ -111,9 +113,9 @@ const transactionAPI = createApi({
       }),
       providesTags: ["CompanyToCompanyTransactions"],
     }),
-    getCompanyToCompanyTransactionsById: builder.query({
+    getCompanyToCompanyTransactionById: builder.query({
       query: (transactionNumber) => ({
-        url: `transactions/GetCompanyToCompanyTransactions`,
+        url: `transactions/GetCompanyToCompanyTransaction`,
         method: "GET",
         params: {
           transactionNumber: transactionNumber,
@@ -137,13 +139,13 @@ export const {
   useGetUserToUserTransactionByIdQuery,
   useMakeUserToUserTransactionMutation,
   useGetUserToCompanyTransactionsQuery,
-  useGetUserToCompanyTransactionsByIdQuery,
+  useGetUserToCompanyTransactionByIdQuery,
   useMakeUserToCompanyTransactionsMutation,
   useGetCompanyToUserTransactionsQuery,
   useGetCompanyToUserTransactionByIdQuery,
   useMakeCompanyToUserTransactionMutation,
   useGetCompanyToCompanyTransactionsQuery,
-  useGetCompanyToCompanyTransactionsByIdQuery,
+  useGetCompanyToCompanyTransactionByIdQuery,
   useMakeCompanyToCompanyTransactionsMutation
 } = transactionAPI;
 export default transactionAPI;

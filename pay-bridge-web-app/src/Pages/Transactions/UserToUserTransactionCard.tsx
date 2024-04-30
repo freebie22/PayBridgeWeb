@@ -75,7 +75,7 @@ function UserToUserTransactionCard(props: TransactionProps) {
         <p className="card-text">Опис:  <span className='text-white'>{props.transaction.description}</span> </p>
         <p className="card-text">Дата транзакції:  <span className='text-white'>{props.transaction.dateOfTransaction}</span></p>
       </div>
-      <button className='btn btn-warning mx-auto mb-3' onClick={() => navigate(`/myProfile/transactionDetails/${props.transaction.transactionUniqueNumber}`)}>Детальніше</button>
+      <button className='btn btn-warning mx-auto mb-3' onClick={() => navigate(`/myProfile/transactionDetails/${props.transaction.transactionUniqueNumber}/userToUserTransaction`)}>Детальніше</button>
     </div>
   )
 }

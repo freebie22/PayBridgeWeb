@@ -343,10 +343,10 @@ function ManagerProfile() {
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <p className="mb-0 text-center">Транзакції</p>
+                  <p className="mb-0 text-center">Усі транзакції</p>
                 </div>
                 <div className="col-sm-9 text-center">
-                  <button className="btn text-white btn-outline-success">Перейти до транзакцій</button>
+                  <button onClick={() => navigate("/managerProfile/allTransactions")} className="btn text-white btn-outline-success">Перейти до транзакцій</button>
                 </div>
               </div>
             </div>

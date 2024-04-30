@@ -10,7 +10,7 @@ import BankAccountCard from "./BankAccount/BankAccountCard";
 import BankCards from "./BankCards_Assets/BankCards";
 import MyBankCards from "./BankCards_Assets/MyBankCards";
 import BankCardCard from "./BankCards_Assets/BankCardCard";
-import AllTransactions from "./Transactions/AllTransactions";
+import AllTransactions from "./Manager_Pages/AllTransactions";
 import MyTransactions from "./Transactions/MyTransactions";
 import UserToUserTransactionCard from "./Transactions/UserToUserTransactionCard";
 import ServiceCatalog from "./ServiceCatalog";
@@ -24,6 +24,11 @@ import CompanyToUserTransactionCard from "./Transactions/CompanyToUserTransactio
 import CompanyTransactions from "./Transactions/CompanyTransactions";
 import CompanyToCompanyTransactionCard from "./Transactions/CompanyToCompanyTransactionCard";
 import ResponsiblePersonRegister from "./ResponsiblePersonRegister";
+import AllBankAssets from "./Manager_Pages/AllBankAssets";
+import AllBankCards from "./Manager_Pages/AllBankCards";
+import AllCorporateAccountHolders from "./Manager_Pages/AllCorporateAccountHolders";
+import AllPersonalAccountHolders from "./Manager_Pages/AllPersonalAccountHolders";
+import AllResponsiblePeople from "./Manager_Pages/AllResponsiblePeople";
 
 export {
   Login,
@@ -49,5 +54,6 @@ export {
   CompanyToUserTransactionCard,
   CompanyTransactions,
   CompanyToCompanyTransactionCard,
-  ResponsiblePersonRegister
+  ResponsiblePersonRegister,
+  AllTransactions
 };

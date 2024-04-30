@@ -277,12 +277,12 @@ function Header() {
                             responsiblePersonData.responsiblePersonId === 0) ? (
                               <div>
                                 {userData.role === "Client" && (
-                                  <div className="d-flex justify-content-center">
+                                  <div className="text-center">
                                     <NavLink
                                   style={{
                                     backgroundColor: "#0DA378",
                                     color: "white",
-                                    border: "none",
+                                    width: "265%"
                                   }}
                                   className="btn mb-2"
                                   to="/registerPersonalAccountHolder"
@@ -297,7 +297,7 @@ function Header() {
                                   style={{
                                     backgroundColor: "#0DA378",
                                     color: "white",
-                                    border: "none",
+                                    width: "265%"
                                   }}
                                   className="btn mb-2"
                                   to="/registerResponsiblePerson"
@@ -308,13 +308,13 @@ function Header() {
                                 )}
                               </div>
                             ) : (
-                              <div className="d-flex justify-content-center">
+                              <div className="text-center">
                                 <NavLink
                                   style={{
                                     color: "white",
-                                    border: "none",
+                                    width: "265%"
                                   }}
-                                  className="btn btn-success mx-auto mb-2"
+                                  className="btn btn-success text-center mx-auto mb-2"
                                   to={profileLink}
                                 >
                                   Особистий кабінет
